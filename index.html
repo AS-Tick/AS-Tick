@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AS_Tick Script Hub</title>
+    <title>AS-Tick Script Hub</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,7 +28,6 @@
         h1 { font-size: 26px; margin-bottom: 5px; color: #38bdf8; }
         .sub-title { color: #94a3b8; font-size: 14px; margin-bottom: 20px; }
         
-        /* Search Input */
         .search-box {
             width: 100%;
             padding: 12px;
@@ -43,7 +42,6 @@
         }
         .search-box:focus { border-color: #38bdf8; }
 
-        /* Script Items */
         .script-list {
             text-align: left;
             max-height: 220px;
@@ -63,7 +61,6 @@
         }
         .script-item:hover { background-color: #475569; }
 
-        /* Ad Display Container */
         .ad-container {
             background-color: #0f172a;
             border: 1px dashed #38bdf8;
@@ -117,43 +114,28 @@
 </head>
 <body>
 
-<!-- Search & Home Screen -->
 <div class="container" id="home-view">
-    <h1>AS_Tick</h1>
+    <h1>AS-Tick</h1>
     <p class="sub-title">Search & Get Roblox Scripts</p>
 
     <input type="text" id="searchInput" class="search-box" placeholder="Search scripts..." onkeyup="filterScripts()">
 
     <div class="script-list" id="scriptList">
-        <!-- Script 1 -->
-        <div class="script-item" onclick="openScript('Slapper Script', 'loadstring(game:HttpGet(\'https://gist.githubusercontent.com/AS-Tick/c31b0afef647e61447c7e56fbaf24285/raw/Slapper.lua\'))()')">
-            <span>Slapper Script</span>
+        <div class="script-item" onclick="openScript('AS-Tick Script', 'loadstring(game:HttpGet(\'https://gist.githubusercontent.com/AS-Tick/c31b0afef647e61447c7e56fbaf24285/raw/Slapper.lua\'))()')">
+            <span>AS-Tick Script</span>
             <span style="color: #38bdf8; font-size: 13px;">Get Script &rarr;</span>
         </div>
-        
-        <!-- Future me aur scripts add karne ke liye niche paste kar sakte hain -->
     </div>
 </div>
 
-<!-- Unlock Screen (Timer & Ads) -->
 <div class="container hidden" id="unlock-view">
     <h1 id="selectedScriptName">Script Title</h1>
     <p class="sub-title">Wait for the timer to unlock your loadstring</p>
 
     <!-- ADSTERRA AD PLACEMENT -->
     <div class="ad-container">
-        <!-- 👇 REPLACE THIS CODE WITH YOUR ADSTERRA SCRIPT CODE 👇 -->
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'YOUR_ADSTERRA_KEY_HERE',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 468,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.topcreativeformat.com/YOUR_ADSTERRA_KEY_HERE/invoke.js"></script>
-        <!-- 👆 REPLACE THIS CODE WITH YOUR ADSTERRA SCRIPT CODE 👆 -->
+        <script async="async" data-cfasync="false" src="https://pl31052520.profitableratecpmnetwork.com/4ac8f0b1a9c0721fd8b405568e58e1b8/invoke.js"></script>
+        <div id="container-4ac8f0b1a9c0721fd8b405568e58e1b8"></div>
     </div>
 
     <div id="timer-text" class="timer">Please wait: <span id="count">30</span> seconds</div>
@@ -219,3 +201,7 @@
 
 </body>
 </html>
+
+            
+
+    
