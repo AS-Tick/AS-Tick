@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Slapper Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { font-size: 24px; margin-bottom: 10px; color: #38bdf8; }
+        p { color: #94a3b8; font-size: 14px; }
+        
+        /* Ad Banner Placeholder */
+        .ad-box {
+            background-color: #334155;
+            border: 2px dashed #64748b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f59e0b;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn:hover { background-color: #7dd3fc; }
+
+        .script-box {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            background-color: #0f172a;
+            color: #4ade80;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: monospace;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Slapper Script Get Site</h1>
+    <p>Script unlocked karne ke liye 30 seconds wait karein aur Ads dekhein.</p>
+
+    <!-- Ad Network ka code yahan dalein -->
+    <div class="ad-box">
+        <p><strong>[ ADVERTISEMENT AREA ]</strong></p>
+        <p>Aapki Ads Yahan Show Hongi</p>
+    </div>
+
+    <div id="timer-text" class="timer">Kripya wait karein: <span id="count">30</span> seconds</div>
+
+    <div id="script-area" class="script-box">
+        <textarea id="scriptText" readonly>loadstring(game:HttpGet("https://gist.githubusercontent.com/AS-Tick/c31b0afef647e61447c7e56fbaf24285/raw/Slapper.lua"))()</textarea>
+        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="copyScript()">Copy Script</button>
+    </div>
+</div>
+
+<script>
+    let timeLeft = 30;
+    const countSpan = document.getElementById('count');
+    const timerText = document.getElementById('timer-text');
+    const scriptArea = document.getElementById('script-area');
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+        countSpan.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerText.style.display = 'none';
+            scriptArea.style.display = 'block';
+        }
+    }, 1000);
+
+    function copyScript() {
+        const copyText = document.getElementById("scriptText");
+        copyText.select();
+        navigator.clipboard.writeText(copyText.value);
+        alert("Script Copy ho gaya!");
+    }
+</script>
+
+</body>
+</html>
+  
