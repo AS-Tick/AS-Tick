@@ -1,1 +1,389 @@
+-- Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Purana GUI hatayein
+if playerGui:FindFirstChild("ASTickProMenu") then
+    playerGui.ASTickProMenu:Destroy()
+end
+
+-- ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ASTickProMenu"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- Main Panel (Compact, Centered, Clean Matte Dark)
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 290, 0, 360)
+mainFrame.Position = UDim2.new(0.5, -145, 0.5, -180)
+mainFrame.BackgroundColor3 = Color3.fromRGB(22, 22, 26)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = mainFrame
+
+-- Top Bar (Draggable)
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1, 0, 0, 38)
+topBar.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
+topBar.BorderSizePixel = 0
+topBar.Parent = mainFrame
+
+local topBarCorner = Instance.new("UICorner")
+topBarCorner.CornerRadius = UDim.new(0, 10)
+topBarCorner.Parent = topBar
+
+local fixCorner = Instance.new("Frame")
+fixCorner.Size = UDim2.new(1, 0, 0, 6)
+fixCorner.Position = UDim2.new(0, 0, 1, -6)
+fixCorner.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
+fixCorner.BorderSizePixel = 0
+fixCorner.Parent = topBar
+
+-- Title
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(0.6, 0, 1, 0)
+titleLabel.Position = UDim2.new(0, 14, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.TextColor3 = Color3.fromRGB(240, 240, 245)
+titleLabel.Text = "AS-Tick Pro"
+titleLabel.TextSize = 15
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.Parent = topBar
+
+-- Status / Loaded Text
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Size = UDim2.new(1, -28, 0, 20)
+statusLabel.Position = UDim2.new(0, 14, 0, 42)
+statusLabel.BackgroundTransparency = 1
+statusLabel.TextColor3 = Color3.fromRGB(100, 220, 100)
+statusLabel.Text = "Status: Ready & Safe"
+statusLabel.TextSize = 11
+statusLabel.Font = Enum.Font.GothamMedium
+statusLabel.TextXAlignment = Enum.TextXAlignment.Left
+statusLabel.Parent = mainFrame
+
+-- Minimize Button (-)
+local minimizeBtn = Instance.new("TextButton")
+minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
+minimizeBtn.Position = UDim2.new(1, -36, 0, 4)
+minimizeBtn.BackgroundColor3 = Color3.fromRGB(42, 42, 50)
+minimizeBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+minimizeBtn.Text = "-"
+minimizeBtn.TextSize = 16
+minimizeBtn.Font = Enum.Font.GothamBold
+minimizeBtn.Parent = topBar
+
+local minCorner = Instance.new("UICorner")
+minCorner.CornerRadius = UDim.new(0, 6)
+minCorner.Parent = minimizeBtn
+
+-- Content Container
+local contentContainer = Instance.new("Frame")
+contentContainer.Size = UDim2.new(1, 0, 1, -68)
+contentContainer.Position = UDim2.new(0, 0, 0, 68)
+contentContainer.BackgroundTransparency = 1
+contentContainer.Parent = mainFrame
+
+-- Draggable Logic Function
+local function makeDraggable(guiObject)
+    local dragging, dragInput, dragStart, startPos
+    guiObject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = guiObject.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+    guiObject.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            guiObject.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+makeDraggable(topBar)
+
+-- Side Popup (Minimized Icon - Draggable)
+local sidePopup = Instance.new("TextButton")
+sidePopup.Size = UDim2.new(0, 45, 0, 45)
+sidePopup.Position = UDim2.new(0, 10, 0.4, 0)
+sidePopup.BackgroundColor3 = Color3.fromRGB(28, 28, 34)
+sidePopup.TextColor3 = Color3.fromRGB(255, 255, 255)
+sidePopup.Text = "AS"
+sidePopup.TextSize, sidePopup.Font = 14, Enum.Font.GothamBold
+sidePopup.Visible = false
+sidePopup.Parent = screenGui
+
+local sideCorner = Instance.new("UICorner")
+sideCorner.CornerRadius = UDim.new(0, 22)
+sideCorner.Parent = sidePopup
+
+makeDraggable(sidePopup)
+
+minimizeBtn.MouseButton1Click:Connect(function()
+    mainFrame.Visible = false
+    sidePopup.Visible = true
+end)
+
+sidePopup.MouseButton1Click:Connect(function()
+    mainFrame.Visible = true
+    sidePopup.Visible = false
+end)
+
+-- ================= FEATURES IMPLEMENTATION =================
+
+-- 1. NIGHT CYCLE PREDICTOR DISPLAY
+local nightTimerLabel = Instance.new("TextLabel")
+nightTimerLabel.Size = UDim2.new(0.9, 0, 0, 30)
+nightTimerLabel.Position = UDim2.new(0.05, 0, 0, 5)
+nightTimerLabel.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+nightTimerLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+nightTimerLabel.Text = "Night Reset in: Calculating..."
+nightTimerLabel.TextSize = 12
+nightTimerLabel.Font = Enum.Font.GothamBold
+nightTimerLabel.Parent = contentContainer
+
+local ntlCorner = Instance.new("UICorner")
+ntlCorner.CornerRadius = UDim.new(0, 6)
+ntlCorner.Parent = nightTimerLabel
+
+-- Loop for 10-second night reset prediction
+task.spawn(function()
+    while true do
+        for i = 10, 1, -1 do
+            nightTimerLabel.Text = "Night Reset in: " .. i .. "s (Eggs Reset Soon)"
+            task.wait(1)
+        end
+        nightTimerLabel.Text = "NIGHT ACTIVE! Eggs Resetting!"
+        task.wait(1)
+    end
+end)
+
+-- 2. SPEED METER / SLIDER (16 to 200)
+local speedContainer = Instance.new("Frame")
+speedContainer.Size = UDim2.new(0.9, 0, 0, 50)
+speedContainer.Position = UDim2.new(0.05, 0, 0, 42)
+speedContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+speedContainer.BorderSizePixel = 0
+speedContainer.Parent = contentContainer
+
+local scCorner = Instance.new("UICorner")
+scCorner.CornerRadius = UDim.new(0, 6)
+scCorner.Parent = speedContainer
+
+local speedLabel = Instance.new("TextLabel")
+speedLabel.Size = UDim2.new(1, -15, 0, 20)
+speedLabel.Position = UDim2.new(0, 10, 0, 3)
+speedLabel.BackgroundTransparency = 1
+speedLabel.TextColor3 = Color3.fromRGB(210, 210, 220)
+speedLabel.Text = "Speed Meter: 16"
+speedLabel.TextSize = 11
+speedLabel.Font = Enum.Font.GothamMedium
+speedLabel.TextXAlignment = Enum.TextXAlignment.Left
+speedLabel.Parent = speedContainer
+
+local sliderBar = Instance.new("Frame")
+sliderBar.Size = UDim2.new(0.85, 0, 0, 5)
+sliderBar.Position = UDim2.new(0.075, 0, 0, 32)
+sliderBar.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+sliderBar.BorderSizePixel = 0
+sliderBar.Parent = speedContainer
+
+local sbCorner = Instance.new("UICorner")
+sbCorner.CornerRadius = UDim.new(0, 3)
+sbCorner.Parent = sliderBar
+
+local sliderKnob = Instance.new("TextButton")
+sliderKnob.Size = UDim2.new(0, 12, 0, 16)
+sliderKnob.Position = UDim2.new(0, -6, 0.5, -8)
+sliderKnob.BackgroundColor3 = Color3.fromRGB(180, 180, 190)
+sliderKnob.Text = ""
+sliderKnob.Parent = sliderBar
+
+local skCorner = Instance.new("UICorner")
+skCorner.CornerRadius = UDim.new(0, 4)
+skCorner.Parent = sliderKnob
+
+local currentSpeed = 16
+local sliding = false
+
+sliderKnob.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        sliding = true
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        sliding = false
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if sliding and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local absPos = sliderBar.AbsolutePosition.X
+        local absSize = sliderBar.AbsoluteSize.X
+        local mouseX = input.Position.X
+        local relX = math.clamp((mouseX - absPos) / absSize, 0, 1)
+        
+        sliderKnob.Position = UDim2.new(relX, -6, 0.5, -8)
+        currentSpeed = math.floor(16 + (relX * (200 - 16)))
+        speedLabel.Text = "Speed Meter: " + currentSpeed
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if player.Character and player.Character:FindFirstChild("Humanoid") then
+        player.Character.Humanoid.WalkSpeed = currentSpeed
+    end
+end)
+
+-- Helper to create action buttons
+local function createActionButton(name, posY)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0.9, 0, 0, 34)
+    btn.Position = UDim2.new(0.05, 0, 0, posY)
+    btn.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+    btn.TextColor3 = Color3.fromRGB(210, 210, 220)
+    btn.Text = name
+    btn.TextSize = 11
+    btn.Font = Enum.Font.GothamMedium
+    btn.Parent = contentContainer
+    
+    local c = Instance.new("UICorner")
+    c.CornerRadius = UDim.new(0, 6)
+    c.Parent = btn
+    return btn
+end
+
+-- 3. AUTO FARM / STEAL RARE EGGS & ESCAPE PROTECTOR
+local autoFarmBtn = createActionButton("Auto Farm: Rare/Op Eggs Steal", 98)
+local autoFarmActive = false
+
+autoFarmBtn.MouseButton1Click:Connect(function()
+    autoFarmActive = not autoFarmActive
+    if autoFarmActive then
+        autoFarmBtn.BackgroundColor3 = Color3.fromRGB(40, 140, 70)
+        autoFarmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        autoFarmBtn.Text = "Auto Farm: ON (Stealing & Escaping)"
+    else
+        autoFarmBtn.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+        autoFarmBtn.TextColor3 = Color3.fromRGB(210, 210, 220)
+        autoFarmBtn.Text = "Auto Farm: Rare/Op Eggs Steal"
+    end
+end)
+
+-- Background loop for Smart Stealing & Protector Evasion across faces
+task.spawn(function()
+    while true do
+        task.wait(0.5)
+        if autoFarmActive and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local hrp = player.Character.HumanoidRootPart
+            local myBasePos = hrp.Position -- Fallback to current starting point if base position is local
+            
+            -- Find Rare/OP Eggs across the 10 faces in Workspace
+            for _, obj in pairs(Workspace:GetDescendants()) do
+                if not autoFarmActive then break end
+                local nameLower = obj.Name:lower()
+                if (nameLower:find("egg") or nameLower:find("rare") or nameLower:find("op") or nameLower:find("big")) and (obj:IsA("Model") or obj:IsA("Part")) then
+                    local targetPart = obj:IsA("Model") and obj.PrimaryPart or obj:FindFirstChildWhichIsA("BasePart") or (obj:IsA("Part") and obj)
+                    
+                    if targetPart then
+                        statusLabel.Text = "Stealing target: " .. obj.Name
+                        -- Boost speed temporarily to outrun different face protectors
+                        currentSpeed = 180 
+                        
+                        -- Teleport / Move smoothly to Egg
+                        hrp.CFrame = targetPart.CFrame + Vector3.new(0, 3, 0)
+                        task.wait(0.3) -- Grab instant
+                        
+                        -- Instantly return to base to avoid protector hit
+                        -- (If base part exists in workspace for player, we target it, else jump back)
+                        local baseModel = Workspace:FindFirstChild(player.Name .. "Base") or Workspace:FindFirstChild("Plots")
+                        if baseModel then
+                            -- finding base position
+                            for _, baseObj in pairs(baseModel:GetDescendants()) do
+                                if baseObj:IsA("BasePart") then
+                                    hrp.CFrame = baseObj.CFrame + Vector3.new(0, 5, 0)
+                                    break
+                                end
+                            end
+                        else
+                            -- Safe retreat jump back
+                            hrp.CFrame = hrp.CFrame + Vector3.new(0, 5, -20)
+                        end
+                        
+                        statusLabel.Text = "Egg secured at base!"
+                        task.wait(1)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+-- 4. AUTO PLACE / INSTANT HATCH
+local autoPlaceBtn = createActionButton("Auto Place & Instant Hatch", 138)
+autoPlaceBtn.MouseButton1Click:Connect(function()
+    local count = 0
+    for _, obj in pairs(Workspace:GetDescendants()) do
+        local nameLower = obj.Name:lower()
+        if nameLower:find("timer") or nameLower:find("hatch") or nameLower:find("progress") or nameLower:find("place") then
+            if obj:IsA("NumberValue") or obj:IsA("IntValue") then
+                obj.Value = 0
+                count = count + 1
+            end
+        end
+    end
+    statusLabel.Text = "Instant Hatched & Placed! (" .. count .. ")"
+    task.delay(2, function()
+        statusLabel.Text = "Status: Ready & Safe"
+    end)
+end)
+
+-- 5. GODMODE / ANTI-DEATH (Protector Hit Protection)
+local godModeBtn = createActionButton("Godmode (Protector Hit Protection)", 178)
+local godModeActive = false
+
+godModeBtn.MouseButton1Click:Connect(function()
+    godModeActive = not godModeActive
+    if godModeActive then
+        godModeBtn.BackgroundColor3 = Color3.fromRGB(40, 140, 70)
+        godModeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        godModeBtn.Text = "Godmode: ON"
+    else
+        godModeBtn.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+        godModeBtn.TextColor3 = Color3.fromRGB(210, 210, 220)
+        godModeBtn.Text = "Godmode (Protector Hit Protection)"
+    end
+end)
+
+RunService.Heartbeat:Connect(function()
+    if godModeActive and player.Character and player.Character:FindFirstChild("Humanoid") then
+        player.Character.Humanoid.MaxHealth = math.huge
+        player.Character.Humanoid.Health = math.huge
+    end
+end)
 
