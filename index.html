@@ -4,78 +4,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AS-Tick Script Hub</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     min-height: 100vh;
+    padding: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
     background: #0f172a;
     color: white;
-    font-family: Arial, sans-serif;
-    padding: 20px;
 }
 
 .container {
-    background: #1e293b;
-    padding: 25px;
-    border-radius: 15px;
     width: 100%;
     max-width: 450px;
+    padding: 25px;
+    border-radius: 15px;
+    background: #1e293b;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 25px rgba(0,0,0,.4);
 }
 
-h1 {
-    color: #38bdf8;
-}
+h1 { color: #38bdf8; }
 
 .banner {
-    background: linear-gradient(135deg, #0284c7, #2563eb);
+    background: linear-gradient(135deg,#0284c7,#2563eb);
     padding: 18px;
     border-radius: 10px;
     margin: 20px 0;
     font-weight: bold;
 }
 
-.btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    background: #22c55e;
-    color: white;
+.ad-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 100%;
+    min-height: 70px;
+    overflow: hidden;
 }
 
 .timer {
     color: #fbbf24;
-    font-size: 20px;
-    margin: 20px 0;
     font-weight: bold;
+    font-size: 19px;
+    margin: 20px 0;
 }
 
-.hidden {
-    display: none;
+.btn {
+    width: 100%;
+    display: block;
+    padding: 14px;
+    border: 0;
+    border-radius: 8px;
+    background: #38bdf8;
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.green {
+    background: #22c55e;
+    color: white;
+}
+
+.hidden { display: none !important; }
+
+.final-link {
+    display: block;
+    overflow-wrap: anywhere;
+    color: #38bdf8;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
 }
 
 .footer {
+    margin-top: 25px;
     color: #64748b;
     font-size: 12px;
-    margin-top: 25px;
 }
 </style>
 </head>
@@ -88,25 +106,75 @@ h1 {
 <p>Script Hub</p>
 
 <div class="banner">
-WAIT 10 SECONDS AND GET LINK
+WAIT 7 SECONDS AND CONTINUE
 </div>
 
-<button class="btn" id="startBtn" onclick="startTimer()">
-GET LINK
+<!-- STEP 1 -->
+
+<div id="step1">
+
+<p>Advertisement</p>
+
+<div class="ad-box" id="ad1"></div>
+
+<div class="timer" id="timer1">
+Please wait 7 seconds...
+</div>
+
+<button id="next1" class="btn hidden" onclick="showStep2()">
+CONTINUE
 </button>
 
-<div id="timer" class="timer hidden"></div>
+</div>
+
+<!-- STEP 2 -->
+
+<div id="step2" class="hidden">
+
+<div class="banner">
+WAIT 5 SECONDS AND CONTINUE
+</div>
+
+<p>Advertisement</p>
+
+<div class="ad-box" id="ad2"></div>
+
+<div class="timer" id="timer2">
+Please wait 5 seconds...
+</div>
+
+<button id="next2" class="btn hidden" onclick="showFinal()">
+CONTINUE TO LINK
+</button>
+
+</div>
+
+<!-- FINAL PAGE -->
+
+<div id="final" class="hidden">
+
+<h2>Your Link is Ready!</h2>
+
+<p>Click the link below to open TeraShare:</p>
 
 <a
-id="finalLink"
-class="btn hidden"
+class="final-link"
 href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
 target="_blank"
 rel="noopener noreferrer">
 
-DOWNLOAD LINK
+https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ
 
 </a>
+
+<button class="btn green"
+onclick="window.open('https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ','_blank')">
+
+OPEN TERASHARE
+
+</button>
+
+</div>
 
 <div class="footer">
 AS-Tick Script Hub
@@ -116,46 +184,123 @@ AS-Tick Script Hub
 
 <script>
 
-let countdown;
+// AD 1: 468x60
+function loadAd1() {
 
-function startTimer() {
+    const box = document.getElementById("ad1");
 
-    const startBtn = document.getElementById("startBtn");
-    const timer = document.getElementById("timer");
-    const finalLink = document.getElementById("finalLink");
+    window.atOptions = {
+        'key': '4a0f9f4f79426fe7c7f7f51d5757b276',
+        'format': 'iframe',
+        'height': 60,
+        'width': 468,
+        'params': {}
+    };
 
-    startBtn.classList.add("hidden");
-    timer.classList.remove("hidden");
-    finalLink.classList.add("hidden");
+    const script = document.createElement("script");
+    script.src = "https://bauval.org/22/4a0f9f4f79426fe7c7f7f51d5757b276";
+    box.appendChild(script);
+}
 
-    let seconds = 10;
 
-    timer.textContent = "Please wait " + seconds + " seconds...";
+// AD 2: 300x250
+function loadAd2() {
 
-    clearInterval(countdown);
+    const box = document.getElementById("ad2");
 
-    countdown = setInterval(function() {
+    window.atOptions = {
+        'key': '044ccee5730ced0f1ab0026b0b216c54',
+        'format': 'iframe',
+        'height': 250,
+        'width': 300,
+        'params': {}
+    };
 
-        seconds--;
+    const script = document.createElement("script");
+    script.src = "https://bauval.org/22/044ccee5730ced0f1ab0026b0b216c54";
+    box.appendChild(script);
+}
 
-        if (seconds > 0) {
 
-            timer.textContent =
-            "Please wait " + seconds + " seconds...";
+// TIMER 1: 7 seconds
+let seconds1 = 7;
 
-        } else {
+const countdown1 = setInterval(function() {
 
-            clearInterval(countdown);
+    seconds1--;
 
-            timer.textContent = "Your link is ready!";
+    document.getElementById("timer1").textContent =
+        "Please wait " + seconds1 + " seconds...";
 
-            finalLink.classList.remove("hidden");
+    if (seconds1 <= 0) {
+
+        clearInterval(countdown1);
+
+        document.getElementById("timer1").textContent =
+            "You can continue now!";
+
+        document.getElementById("next1")
+            .classList.remove("hidden");
+
+    }
+
+}, 1000);
+
+
+// STEP 2
+function showStep2() {
+
+    document.getElementById("step1")
+        .classList.add("hidden");
+
+    document.getElementById("step2")
+        .classList.remove("hidden");
+
+    loadAd2();
+
+    let seconds2 = 5;
+
+    document.getElementById("timer2").textContent =
+        "Please wait 5 seconds...";
+
+    const countdown2 = setInterval(function() {
+
+        seconds2--;
+
+        document.getElementById("timer2").textContent =
+            "Please wait " + seconds2 + " seconds...";
+
+        if (seconds2 <= 0) {
+
+            clearInterval(countdown2);
+
+            document.getElementById("timer2").textContent =
+                "Your link is ready!";
+
+            document.getElementById("next2")
+                .classList.remove("hidden");
 
         }
 
     }, 1000);
 
 }
+
+
+// FINAL PAGE
+function showFinal() {
+
+    document.getElementById("step2")
+        .classList.add("hidden");
+
+    document.getElementById("final")
+        .classList.remove("hidden");
+
+}
+
+
+// Load first ad
+loadAd1();
 
 </script>
 
