@@ -4,7 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AS-Tick Script Hub</title>
+
+<!-- Website icon and WhatsApp/social preview: AS-Tick logo only -->
+<link rel="icon" type="image/png" href="as-tick-logo.png">
+
+<meta property="og:title" content="AS-Tick Script Hub">
+<meta property="og:description" content="AS-Tick Official Script Hub">
+<meta property="og:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png">
+<meta property="og:url" content="https://as-tick.github.io/AS-Tick/">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AS-Tick Script Hub">
+<meta name="twitter:description" content="AS-Tick Official Script Hub">
+<meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png">
 
 <style>
 * {
@@ -21,7 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Animated red background */
 body::before {
   content: "";
   position: fixed;
@@ -167,7 +181,6 @@ footer {
   font-size: 13px;
 }
 
-/* Adblock warning */
 #warning {
   position: fixed;
   inset: 0;
@@ -223,7 +236,7 @@ footer {
     <button id="next2" disabled onclick="showCards()">Next</button>
   </section>
 
-  <!-- GAME CARDS -->
+  <!-- GAME CARDS: FF LOGOS UNCHANGED -->
   <section id="cardsSection" class="panel hidden">
     <h2>Available Links</h2>
     <p>Select your option below.</p>
@@ -266,7 +279,7 @@ footer {
   AS-Tick Script Hub © 2026
 </footer>
 
-<!-- Adblock warning -->
+<!-- AdBlock warning -->
 <div id="warning">
   <div class="warning-box">
     <h2>AdBlock Detected</h2>
@@ -338,7 +351,7 @@ function loadAd(containerId, key, width, height) {
   adFrame.appendChild(adScript);
 }
 
-/* Start first ad */
+/* First ad */
 loadAd(
   "ad468",
   "4a0f9f4f79426fe7c7f7f51d5757b276",
@@ -346,14 +359,16 @@ loadAd(
   60
 );
 
-/* Step 1 timer */
+/* Step 1 countdown */
 let time1 = 7;
 
 const countdown1 = setInterval(() => {
   time1--;
 
   document.getElementById("timer1").textContent =
-    time1 > 0 ? "Please wait " + time1 + " seconds..." : "You can continue now!";
+    time1 > 0
+      ? "Please wait " + time1 + " seconds..."
+      : "You can continue now!";
 
   if (time1 <= 0) {
     clearInterval(countdown1);
@@ -379,7 +394,9 @@ function goStep2() {
     time2--;
 
     document.getElementById("timer2").textContent =
-      time2 > 0 ? "Please wait " + time2 + " seconds..." : "You can continue now!";
+      time2 > 0
+        ? "Please wait " + time2 + " seconds..."
+        : "You can continue now!";
 
     if (time2 <= 0) {
       clearInterval(countdown2);
@@ -388,7 +405,7 @@ function goStep2() {
   }, 1000);
 }
 
-/* Show cards */
+/* Show game cards */
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
@@ -439,7 +456,7 @@ function backToCards() {
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-/* Basic adblock check - not guaranteed to detect every blocker */
+/* Basic AdBlock detection */
 setTimeout(() => {
   const bait = document.createElement("div");
   bait.className = "adsbox ad-banner ad-unit";
