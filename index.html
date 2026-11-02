@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,9 +174,10 @@ button:disabled {
   color: #ff3333;
 }
 
-/* YouTube tutorial */
+/* YouTube tutorial styling */
 .youtube-section {
   max-width: 650px;
+  width: 100%;
   margin: 20px auto;
   padding: 15px;
   border: 1px solid #900000;
@@ -280,7 +280,7 @@ footer {
 
     <div class="cards">
 
-      <!-- 2022 FF LOGO - UNCHANGED -->
+      <!-- 2022 FF -->
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
@@ -289,7 +289,7 @@ footer {
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
 
-      <!-- 2019 FF LOGO - UNCHANGED -->
+      <!-- 2019 FF Old -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
@@ -307,25 +307,26 @@ footer {
 
     <div id="ad728" class="ad-box"></div>
 
-    <!-- YouTube tutorial for 2022 FF only -->
+    <!-- YouTube tutorial dynamically changes for 2022 / 2019 -->
     <div id="youtubeTutorial" class="youtube-section hidden">
 
-      <h3>📺 2022 FF YouTube Tutorial</h3>
+      <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
 
       <div class="video-wrapper">
         <iframe
           id="tutorialFrame"
-          src=""
-          title="2022 FF YouTube Tutorial"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          src="about:blank"
+          title="YouTube Tutorial"
+          loading="eager"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
         </iframe>
       </div>
 
       <a
+        id="youtubeButton"
         class="youtube-btn"
-        href="https://youtu.be/paWvVTU2JwI"
+        href="#"
         target="_blank"
         rel="noopener noreferrer">
         Watch on YouTube ↗
@@ -477,9 +478,11 @@ function showCards() {
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-/* Open selected download */
+/* Open selected download section + its corresponding YouTube video */
 function openDownload(type) {
   const data = downloadData[type];
+
+  if (!data) return;
 
   document.getElementById("cardsSection").classList.add("hidden");
   document.getElementById("downloadSection").classList.remove("hidden");
@@ -489,17 +492,35 @@ function openDownload(type) {
   const optionsContainer = document.getElementById("downloadOptions");
   optionsContainer.innerHTML = "";
 
-  /* Show YouTube tutorial only for 2022 FF */
   const tutorial = document.getElementById("youtubeTutorial");
   const tutorialFrame = document.getElementById("tutorialFrame");
+  const tutorialTitle = document.getElementById("youtubeTitle");
+  const youtubeButton = document.getElementById("youtubeButton");
 
+  /* 2022 FF tutorial */
   if (type === "ff2022") {
     tutorial.classList.remove("hidden");
+
+    tutorialTitle.textContent = "📺 2022 FF YouTube Tutorial";
+
     tutorialFrame.src =
-      "https://www.youtube-nocookie.com/embed/paWvVTU2JwI";
-  } else {
-    tutorial.classList.add("hidden");
-    tutorialFrame.src = "";
+      "https://www.youtube.com/embed/paWvVTU2JwI";
+
+    youtubeButton.href =
+      "https://youtu.be/paWvVTU2JwI";
+  }
+
+  /* 2019 FF tutorial */
+  else if (type === "old2019") {
+    tutorial.classList.remove("hidden");
+
+    tutorialTitle.textContent = "📺 2019 FF Old YouTube Tutorial";
+
+    tutorialFrame.src =
+      "https://www.youtube.com/embed/1wmRAtVKckA";
+
+    youtubeButton.href =
+      "https://youtu.be/1wmRAtVKckA";
   }
 
   /* Create download options */
@@ -536,8 +557,8 @@ function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 
-  /* Stop video playback after returning */
-  document.getElementById("tutorialFrame").src = "";
+  /* Stop video playback */
+  document.getElementById("tutorialFrame").src = "about:blank";
 }
 
 /* Basic AdBlock detection */
@@ -562,5 +583,4 @@ setTimeout(() => {
 </script>
 
 </body>
-  </html>
-  
+</html>
