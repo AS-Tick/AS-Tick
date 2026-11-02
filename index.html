@@ -1,207 +1,309 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AS-Tick Script Hub</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
         }
-        .container {
-            background-color: #1e293b;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 { font-size: 26px; margin-bottom: 5px; color: #38bdf8; }
-        .sub-title { color: #94a3b8; font-size: 14px; margin-bottom: 20px; }
-        
-        .search-box {
-            width: 100%;
-            padding: 12px;
-            background-color: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            color: #fff;
-            font-size: 15px;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            outline: none;
-        }
-        .search-box:focus { border-color: #38bdf8; }
 
-        .script-list {
-            text-align: left;
-            max-height: 220px;
-            overflow-y: auto;
-            margin-bottom: 20px;
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0,0,0,0.4);
         }
+
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .search {
+            width: 100%;
+            padding: 14px;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
         .script-item {
-            background-color: #334155;
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            border-radius: 6px;
+            background: #334155;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
         }
-        .script-item:hover { background-color: #475569; }
 
-        .ad-container {
-            background-color: #0f172a;
-            border: 1px dashed #38bdf8;
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 8px;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+        .script-item:hover {
+            background: #475569;
+        }
+
+        .hidden {
+            display: none;
         }
 
         .timer {
-            font-size: 18px;
+            color: #fbbf24;
+            font-size: 20px;
             font-weight: bold;
-            color: #f59e0b;
-            margin-bottom: 15px;
+            margin: 25px 0;
         }
 
         .btn {
-            background-color: #38bdf8;
-            color: #0f172a;
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
             border: none;
-            padding: 12px;
-            font-size: 15px;
+            border-radius: 8px;
+            background: #38bdf8;
+            color: #0f172a;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 6px;
             cursor: pointer;
-            width: 100%;
-            transition: 0.2s;
+            text-decoration: none;
         }
-        .btn:hover { background-color: #7dd3fc; }
 
-        textarea {
-            width: 100%;
-            height: 80px;
-            background-color: #0f172a;
-            color: #4ade80;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            padding: 10px;
-            box-sizing: border-box;
-            font-family: monospace;
-            resize: none;
-            margin-bottom: 10px;
+        .btn:hover {
+            opacity: 0.9;
         }
-        .hidden { display: none; }
+
+        .green {
+            background: #22c55e;
+            color: white;
+        }
+
+        .back {
+            background: #475569;
+            color: white;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #64748b;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container" id="home-view">
+<!-- HOME PAGE -->
+
+<div class="container" id="home">
+
     <h1>AS-Tick</h1>
-    <p class="sub-title">Search & Get Roblox Scripts</p>
 
-    <input type="text" id="searchInput" class="search-box" placeholder="Search scripts..." onkeyup="filterScripts()">
+    <p class="subtitle">Script Hub</p>
 
-    <div class="script-list" id="scriptList">
-        <div class="script-item" onclick="openScript('AS-Tick Script', 'loadstring(game:HttpGet(\'https://gist.githubusercontent.com/AS-Tick/c31b0afef647e61447c7e56fbaf24285/raw/Slapper.lua\'))()')">
+    <div class="banner">
+        WAIT 10 SECONDS AND GET LINK
+    </div>
+
+    <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="Search scripts..."
+        oninput="searchScripts()"
+    >
+
+    <div id="scriptList">
+
+        <div class="script-item"
+             onclick="openScript()">
+
             <span>AS-Tick Script</span>
-            <span style="color: #38bdf8; font-size: 13px;">Get Script &rarr;</span>
+
+            <span style="color:#38bdf8">
+                Get Link →
+            </span>
+
         </div>
+
     </div>
+
+    <p id="noResults" class="hidden">
+        No scripts found.
+    </p>
+
+    <div class="footer">
+        AS-Tick Script Hub
+    </div>
+
 </div>
 
-<div class="container hidden" id="unlock-view">
-    <h1 id="selectedScriptName">Script Title</h1>
-    <p class="sub-title">Wait for the timer to unlock your loadstring</p>
 
-    <!-- ADSTERRA AD PLACEMENT -->
-    <div class="ad-container">
-        <script async="async" data-cfasync="false" src="https://pl31052520.profitableratecpmnetwork.com/4ac8f0b1a9c0721fd8b405568e58e1b8/invoke.js"></script>
-        <div id="container-4ac8f0b1a9c0721fd8b405568e58e1b8"></div>
+<!-- LINK PAGE -->
+
+<div class="container hidden" id="linkPage">
+
+    <h1>AS-Tick Script</h1>
+
+    <p class="subtitle">
+        Complete the timer to unlock your link.
+    </p>
+
+    <div class="banner">
+        WAIT 10 SECONDS AND GET LINK
     </div>
 
-    <div id="timer-text" class="timer">Please wait: <span id="count">30</span> seconds</div>
-
-    <div id="script-area" class="hidden">
-        <textarea id="scriptText" readonly></textarea>
-        <button class="btn" onclick="copyScript()">Copy Script</button>
-        <br><br>
-        <button class="btn" style="background-color: #475569; color: #fff;" onclick="goBack()">&larr; Back to Search</button>
+    <div class="timer" id="timer">
+        Please wait 10 seconds...
     </div>
+
+    <a
+        id="getLink"
+        class="btn green hidden"
+        href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        GET LINK
+
+    </a>
+
+    <button
+        class="btn back"
+        onclick="goBack()">
+
+        ← Back to Search
+
+    </button>
+
+    <div class="footer">
+        AS-Tick Script Hub
+    </div>
+
 </div>
+
 
 <script>
-    let currentScript = "";
+
     let countdown;
 
-    function filterScripts() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let items = document.getElementsByClassName('script-item');
-        for (let i = 0; i < items.length; i++) {
-            let text = items[i].textContent || items[i].innerText;
-            items[i].style.display = text.toLowerCase().indexOf(input) > -1 ? "" : "none";
-        }
+    function searchScripts() {
+
+        const input =
+            document.getElementById("search")
+            .value.toLowerCase();
+
+        const item =
+            document.querySelector(".script-item");
+
+        const found =
+            "as-tick script".includes(input);
+
+        item.style.display = found ? "flex" : "none";
+
+        document.getElementById("noResults")
+            .classList.toggle("hidden", found);
+
     }
 
-    function openScript(name, script) {
-        document.getElementById('home-view').classList.add('hidden');
-        document.getElementById('unlock-view').classList.remove('hidden');
-        document.getElementById('selectedScriptName').textContent = name;
-        currentScript = script;
-        
-        let timeLeft = 30;
-        document.getElementById('count').textContent = timeLeft;
-        document.getElementById('timer-text').style.display = 'block';
-        document.getElementById('script-area').classList.add('hidden');
+
+    function openScript() {
+
+        document.getElementById("home")
+            .classList.add("hidden");
+
+        document.getElementById("linkPage")
+            .classList.remove("hidden");
+
+        const timer =
+            document.getElementById("timer");
+
+        const link =
+            document.getElementById("getLink");
+
+        link.classList.add("hidden");
+
+        let seconds = 10;
+
+        timer.textContent =
+            "Please wait " + seconds + " seconds...";
 
         clearInterval(countdown);
-        countdown = setInterval(() => {
-            timeLeft--;
-            document.getElementById('count').textContent = timeLeft;
 
-            if (timeLeft <= 0) {
+        countdown = setInterval(function() {
+
+            seconds--;
+
+            if (seconds > 0) {
+
+                timer.textContent =
+                    "Please wait " + seconds + " seconds...";
+
+            } else {
+
                 clearInterval(countdown);
-                document.getElementById('timer-text').style.display = 'none';
-                document.getElementById('script-area').classList.remove('hidden');
-                document.getElementById('scriptText').value = currentScript;
+
+                timer.textContent =
+                    "Your link is ready!";
+
+                link.classList.remove("hidden");
+
             }
+
         }, 1000);
+
     }
+
 
     function goBack() {
-        document.getElementById('unlock-view').classList.add('hidden');
-        document.getElementById('home-view').classList.remove('hidden');
+
+        clearInterval(countdown);
+
+        document.getElementById("linkPage")
+            .classList.add("hidden");
+
+        document.getElementById("home")
+            .classList.remove("hidden");
+
     }
 
-    function copyScript() {
-        const copyText = document.getElementById("scriptText");
-        copyText.select();
-        navigator.clipboard.writeText(copyText.value);
-        alert("Script Copied Successfully!");
-    }
 </script>
 
 </body>
 </html>
-
-            
-
-    
