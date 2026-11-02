@@ -10,8 +10,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial,sans-serif;
-  color:#fff;background:#050505;
+  font-family:Arial,sans-serif;color:#fff;background:#050505;
   min-height:100vh;overflow-x:hidden
 }
 
@@ -20,14 +19,12 @@ body::before{
   background:
     radial-gradient(ellipse at 20% 20%,#7b0000,transparent 35%),
     radial-gradient(ellipse at 80% 70%,#bd0000,transparent 30%),
-    radial-gradient(ellipse at 50% 50%,#240000,transparent 45%),
-    #030303;
+    radial-gradient(ellipse at 50% 50%,#240000,transparent 45%),#030303;
   animation:bgMove 12s ease-in-out infinite alternate
 }
 
 body::after{
-  content:"";position:fixed;inset:0;z-index:-1;
-  pointer-events:none;
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(120deg,transparent 40%,rgba(255,0,0,.08),transparent 60%);
   animation:redFlash 5s infinite alternate
 }
@@ -42,61 +39,47 @@ body::after{
 header{text-align:center;padding:22px 10px}
 
 .logo-title{
-  font-size:clamp(35px,8vw,65px);
-  font-weight:900;font-style:italic;
-  text-shadow:0 0 12px red,0 0 28px #900;
-  letter-spacing:2px
+  font-size:clamp(35px,8vw,65px);font-weight:900;font-style:italic;
+  text-shadow:0 0 12px red,0 0 28px #900;letter-spacing:2px
 }
 .logo-title span{color:#ff1717}
 .subtitle{color:#bbb;letter-spacing:3px;font-size:13px;margin-top:5px}
 
 .panel{
-  background:rgba(0,0,0,.88);
-  border:2px solid #ff1616;border-radius:20px;
-  padding:20px;margin:18px 0;
+  background:rgba(0,0,0,.88);border:2px solid #ff1616;
+  border-radius:20px;padding:20px;margin:18px 0;
   box-shadow:0 0 18px rgba(255,0,0,.3)
 }
 
 .step-label{
-  display:inline-block;background:#e60000;
-  padding:6px 15px;border-radius:20px;
-  font-size:13px;font-weight:bold;margin-bottom:12px
+  display:inline-block;background:#e60000;padding:6px 15px;
+  border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px
 }
 
 h2{font-size:26px;margin-bottom:8px}
 .description{color:#ccc;margin-bottom:20px;line-height:1.5}
-
 .ad-title{text-align:center;color:#ddd;font-weight:bold;margin:15px 0 10px}
 
 .ad-box{
-  width:100%;max-width:100%;overflow:hidden;
-  min-height:60px;display:flex;
-  align-items:center;justify-content:center;
-  margin:10px auto 18px;
-  border:1px solid #333;border-radius:8px;background:#080808
+  width:100%;max-width:100%;overflow:hidden;min-height:60px;
+  display:flex;align-items:center;justify-content:center;
+  margin:10px auto 18px;border:1px solid #333;border-radius:8px;
+  background:#080808
 }
 
 .timer{
-  text-align:center;border:1px solid #ff1616;
-  border-radius:12px;padding:14px;
-  max-width:400px;margin:18px auto;
-  font-size:18px;color:#ddd
+  text-align:center;border:1px solid #ff1616;border-radius:12px;
+  padding:14px;max-width:400px;margin:18px auto;font-size:18px;color:#ddd
 }
 .timer strong{display:block;font-size:28px;color:#ff2020;margin-top:5px}
 
 button,.download-btn{
-  display:block;width:100%;border:none;border-radius:12px;
-  padding:15px 18px;
-  background:linear-gradient(135deg,#ff2929,#b00000);
-  color:white;font-size:18px;font-weight:bold;
-  cursor:pointer;text-align:center;text-decoration:none;
-  transition:.2s
+  display:block;width:100%;border:none;border-radius:12px;padding:15px 18px;
+  background:linear-gradient(135deg,#ff2929,#b00000);color:white;
+  font-size:18px;font-weight:bold;cursor:pointer;text-align:center;
+  text-decoration:none;transition:.2s
 }
-
-button:hover,.download-btn:hover{
-  transform:scale(1.02);box-shadow:0 0 20px #900
-}
-
+button:hover,.download-btn:hover{transform:scale(1.02);box-shadow:0 0 20px #900}
 button:disabled{background:#444;color:#aaa;cursor:not-allowed;transform:none}
 .hidden{display:none!important}
 
@@ -104,44 +87,36 @@ button:disabled{background:#444;color:#aaa;cursor:not-allowed;transform:none}
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:15px;margin-top:20px
 }
-
 .link-card{
-  border:1px solid #ff2424;border-radius:16px;
-  padding:15px;text-align:center;
+  border:1px solid #ff2424;border-radius:16px;padding:15px;text-align:center;
   background:linear-gradient(145deg,#190000,#050505);
   box-shadow:0 0 12px rgba(255,0,0,.2)
 }
-
 .card-image{
-  height:135px;display:flex;
-  justify-content:center;align-items:center;margin-bottom:10px
+  height:135px;display:flex;justify-content:center;align-items:center;
+  margin-bottom:10px
 }
 .card-image img{width:125px;height:125px;object-fit:contain;border-radius:50%}
 .link-card h3{font-size:20px;margin:10px 0 15px}
 
 .details{
-  border:2px solid #ff1717;border-radius:16px;
-  padding:20px;margin-top:20px;background:#090909
+  border:2px solid #ff1717;border-radius:16px;padding:20px;
+  margin-top:20px;background:#090909
 }
 .option{margin:12px 0}
 .option p{color:#ccc;margin-bottom:8px;font-weight:bold}
 .back-btn{margin-top:15px;background:#222;border:1px solid #777}
-
 footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
 
-/* Anti-adblock warning overlay */
+/* Ad blocker notice */
 #blockWarning{
-  display:none;position:fixed;inset:0;z-index:999999;
-  background:#050505;color:#fff;
-  align-items:center;justify-content:center;
-  text-align:center;padding:20px
+  display:none;position:fixed;inset:0;z-index:999999;background:#050505;
+  color:#fff;align-items:center;justify-content:center;text-align:center;
+  padding:20px
 }
-
 .warning-card{
-  max-width:440px;width:100%;
-  border:2px solid #ff1616;border-radius:18px;
-  padding:25px;background:#100000;
-  box-shadow:0 0 25px rgba(255,0,0,.5)
+  max-width:440px;width:100%;border:2px solid #ff1616;border-radius:18px;
+  padding:25px;background:#100000;box-shadow:0 0 25px rgba(255,0,0,.5)
 }
 .warning-card h2{color:#ff2525;margin-bottom:15px}
 .warning-card p{line-height:1.6;color:#ddd;margin:15px 0}
@@ -158,19 +133,14 @@ footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
 
 <body>
 
-<!-- AD BLOCK WARNING -->
+<!-- ADBLOCK WARNING -->
 <div id="blockWarning">
   <div class="warning-card">
     <h2>⚠️ AdBlock Detected</h2>
-    <p>
-      Please disable your AdBlocker for this website and reload.
-      Ads may not display correctly while an ad blocker is active.
-    </p>
-    <p>
-      If you are using a VPN, you may try turning it off if ads are not loading.
-      VPN detection is not available on this page.
-    </p>
-    <button onclick="location.reload()">I've Disabled It — Reload</button>
+    <p>Please disable your AdBlocker for this website and reload.</p>
+    <p>If ads are not loading, you may also try turning off your VPN.
+       VPN detection is not available on this page.</p>
+    <button onclick="location.reload()">Reload Website</button>
   </div>
 </div>
 
@@ -181,7 +151,7 @@ footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
   <div class="subtitle">OFFICIAL SCRIPT HUB</div>
 </header>
 
-<!-- STEP 1 -->
+<!-- STEP 1: 7 SECOND AD -->
 <section class="panel" id="step1">
   <span class="step-label">STEP 1 OF 2</span>
   <h2>Continue to your link</h2>
@@ -198,7 +168,7 @@ footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
   <button id="next1" disabled>Next (please wait)</button>
 </section>
 
-<!-- STEP 2 -->
+<!-- STEP 2: 5 SECOND AD -->
 <section class="panel hidden" id="step2">
   <span class="step-label">STEP 2 OF 2</span>
   <h2>One more step</h2>
@@ -215,7 +185,7 @@ footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
   <button id="next2" disabled>Next (please wait)</button>
 </section>
 
-<!-- LINK CARDS -->
+<!-- AVAILABLE LINKS -->
 <section class="panel hidden" id="linkSection">
   <span class="step-label">AVAILABLE LINKS</span>
   <h2>Choose your download</h2>
@@ -223,14 +193,16 @@ footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
 
   <div class="link-grid">
 
+    <!-- 2022 FF CARD -->
     <div class="link-card">
       <div class="card-image">
-        <img src="cr7-logo.png" alt="CR7 blue logo">
+        <img src="cr7-logo.png" alt="2022 FF logo">
       </div>
-      <h3>CR7</h3>
-      <button onclick="openDownload('cr7')">Open ↗</button>
+      <h3>2022 FF</h3>
+      <button onclick="openDownload('ff2022')">Open ↗</button>
     </div>
 
+    <!-- 2019 FF OLD CARD -->
     <div class="link-card">
       <div class="card-image">
         <img src="2019-logo.png" alt="2019 FF Old logo">
@@ -260,17 +232,16 @@ footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
 </div>
 
 <script>
-/* Adsterra banner loader */
+/* Adsterra loader */
 function loadAd(containerId,key,width,height){
   const container=document.getElementById(containerId);
 
-  if(!container || container.dataset.loaded==="yes") return;
+  if(!container || container.dataset.loaded==="yes")return;
 
   container.dataset.loaded="yes";
   container.innerHTML="";
 
   const options=document.createElement("script");
-
   options.text=`
     atOptions={
       'key':'${key}',
@@ -289,10 +260,10 @@ function loadAd(containerId,key,width,height){
   container.appendChild(adScript);
 }
 
-/* STEP 1 AD */
+/* First banner: 468x60 */
 loadAd("ad468","4a0f9f4f79426fe7c7f7f51d5757b276",468,60);
 
-/* 7 SECOND TIMER */
+/* 7-second countdown */
 let seconds7=7;
 const timer7=document.getElementById("timer7");
 const next1=document.getElementById("next1");
@@ -310,7 +281,7 @@ const interval7=setInterval(()=>{
   }
 },1000);
 
-/* STEP 1 -> STEP 2 */
+/* Step 1 -> Step 2 */
 next1.addEventListener("click",()=>{
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
@@ -318,7 +289,7 @@ next1.addEventListener("click",()=>{
   loadAd("ad300","044ccee5730ced0f1ab0026b0b216c54",300,250);
 });
 
-/* 5 SECOND TIMER */
+/* 5-second countdown */
 let seconds5=5;
 const timer5=document.getElementById("timer5");
 const next2=document.getElementById("next2");
@@ -336,16 +307,16 @@ const interval5=setInterval(()=>{
   }
 },1000);
 
-/* STEP 2 -> LINK CARDS */
+/* Step 2 -> link cards */
 next2.addEventListener("click",()=>{
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("linkSection").classList.remove("hidden");
 });
 
-/* DOWNLOAD OPTIONS */
+/* Download destinations */
 const downloadData={
-  cr7:{
-    title:"CR7 Download",
+  ff2022:{
+    title:"2022 FF Download",
     options:`
       <div class="option">
         <p>Option 1 — TeraShare</p>
@@ -379,7 +350,7 @@ const downloadData={
   }
 };
 
-/* OPEN CARD -> 728x90 AD -> LINKS */
+/* Open card -> 728x90 ad -> download options */
 function openDownload(type){
   const data=downloadData[type];
 
@@ -394,7 +365,7 @@ function openDownload(type){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* BACK TO CARDS */
+/* Back button */
 function backToLinks(){
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("linkSection").classList.remove("hidden");
@@ -402,18 +373,15 @@ function backToLinks(){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* BASIC ADBLOCK DETECTION */
+/* Basic adblock detection */
 async function checkAdBlock(){
   let blocked=false;
 
-  // Hidden ad-element bait check
   const bait=document.createElement("div");
   bait.className="adsbox ad-banner ad-unit";
-  bait.style.cssText=
-    "position:absolute;left:-9999px;width:10px;height:10px;";
+  bait.style.cssText="position:absolute;left:-9999px;width:10px;height:10px";
 
   document.body.appendChild(bait);
-
   await new Promise(resolve=>setTimeout(resolve,800));
 
   if(bait.offsetHeight===0 || bait.offsetWidth===0){
@@ -422,41 +390,11 @@ async function checkAdBlock(){
 
   bait.remove();
 
-  // Check whether the browser blocks the Adsterra script domain
-  try{
-    const testScript=document.createElement("script");
-    testScript.src="https://bauval.org/22/747e0e46ad2293f09e331ec38ab28880";
-    testScript.async=true;
-
-    const scriptBlocked=await new Promise(resolve=>{
-      let finished=false;
-
-      const finish=result=>{
-        if(finished)return;
-        finished=true;
-        testScript.remove();
-        resolve(result);
-      };
-
-      testScript.onload=()=>finish(false);
-      testScript.onerror=()=>finish(true);
-
-      document.head.appendChild(testScript);
-
-      setTimeout(()=>finish(false),2500);
-    });
-
-    if(scriptBlocked)blocked=true;
-  }catch(error){
-    // Avoid treating every network failure as definite adblock.
-  }
-
   if(blocked){
     document.getElementById("blockWarning").style.display="flex";
   }
 }
 
-/* Run detector after page load */
 window.addEventListener("load",()=>{
   setTimeout(checkAdBlock,1500);
 });
