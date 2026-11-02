@@ -1,308 +1,261 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AS-Tick Script Hub</title>
-
-<style>
-* { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-}
-
-.container {
-    width: 100%;
-    max-width: 450px;
-    padding: 25px;
-    border-radius: 15px;
-    background: #1e293b;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,.4);
-}
-
-h1 { color: #38bdf8; }
-
-.banner {
-    background: linear-gradient(135deg,#0284c7,#2563eb);
-    padding: 18px;
-    border-radius: 10px;
-    margin: 20px 0;
-    font-weight: bold;
-}
-
-.ad-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-    max-width: 100%;
-    min-height: 70px;
-    overflow: hidden;
-}
-
-.timer {
-    color: #fbbf24;
-    font-weight: bold;
-    font-size: 19px;
-    margin: 20px 0;
-}
-
-.btn {
-    width: 100%;
-    display: block;
-    padding: 14px;
-    border: 0;
-    border-radius: 8px;
-    background: #38bdf8;
-    color: #0f172a;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 12px;
-}
-
-.green {
-    background: #22c55e;
-    color: white;
-}
-
-.hidden { display: none !important; }
-
-.final-link {
-    display: block;
-    overflow-wrap: anywhere;
-    color: #38bdf8;
-    background: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 20px;
-}
-
-.footer {
-    margin-top: 25px;
-    color: #64748b;
-    font-size: 12px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AS-Tick | Script Hub</title>
+  <meta name="description" content="AS-Tick Script Hub">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #151d32;
+      --panel2: #10182a;
+      --text: #f4f7ff;
+      --muted: #aab6d1;
+      --accent: #6c8cff;
+      --accent2: #8d5cff;
+      --border: rgba(255,255,255,.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 22px 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #1b2850 0, var(--bg) 55%);
+    }
+    .wrap { width: 100%; max-width: 720px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 22px; }
+    .logo { font-size: 28px; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: #91aaff; }
+    .subtitle { margin-top: 7px; color: var(--muted); font-size: 14px; }
+    .card {
+      background: rgba(21,29,50,.96); border: 1px solid var(--border);
+      border-radius: 18px; padding: 22px; box-shadow: 0 12px 35px rgba(0,0,0,.28);
+    }
+    .step-label {
+      color: #9fb3ff; font-size: 12px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    h1 { font-size: 25px; margin: 9px 0 8px; }
+    p { color: var(--muted); line-height: 1.55; }
+    .ad-label { text-align: center; color: #8290ad; font-size: 11px; margin: 18px 0 7px; }
+    .ad-box {
+      display: flex; justify-content: center; align-items: center;
+      width: 100%; overflow: hidden; margin: 0 auto 18px;
+      min-height: 62px; background: #0d1425; border: 1px dashed #394765;
+      border-radius: 10px; padding: 5px;
+    }
+    .ad-box.large { min-height: 260px; max-width: 310px; }
+    .ad-box iframe { max-width: 100%; }
+    .timer {
+      text-align: center; padding: 12px; border-radius: 12px;
+      background: var(--panel2); border: 1px solid var(--border);
+      margin: 14px 0; font-size: 15px; color: var(--muted);
+    }
+    .timer strong { color: white; font-size: 24px; display: block; margin-top: 4px; }
+    button, .link-button {
+      display: block; width: 100%; border: 0; border-radius: 12px;
+      padding: 14px 16px; font-size: 16px; font-weight: 700;
+      color: white; text-align: center; text-decoration: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      cursor: pointer; margin-top: 12px;
+    }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .secondary { background: #273451; border: 1px solid var(--border); }
+    .link-list { display: grid; gap: 12px; margin-top: 20px; }
+    .link-card {
+      background: var(--panel2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 15px;
+    }
+    .link-card h3 { margin: 0 0 5px; font-size: 17px; }
+    .link-card p { margin: 0; font-size: 13px; }
+    .link-card .link-button { margin-top: 12px; }
+    .link-card.disabled { opacity: .65; }
+    .link-card.disabled button { background: #273451; }
+    .hidden { display: none !important; }
+    footer { text-align: center; color: #7785a3; font-size: 12px; margin-top: 20px; }
+    @media (max-width: 480px) {
+      body { padding: 14px 10px; }
+      .card { padding: 17px; }
+      h1 { font-size: 22px; }
+      .ad-box { padding: 0; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <header>
+      <div class="logo">AS-<span>Tick</span></div>
+      <div class="subtitle">Script Hub</div>
+    </header>
 
-<div class="container">
+    <!-- STEP 1 -->
+    <main id="step1" class="card">
+      <div class="step-label">Step 1 of 2</div>
+      <h1>Continue to your link</h1>
+      <p>Please wait for the timer to finish. The Next button will become available automatically.</p>
 
-<h1>AS-Tick</h1>
-<p>Script Hub</p>
+      <div class="ad-label">Advertisement</div>
+      <div class="ad-box" id="ad468"></div>
 
-<div class="banner">
-WAIT 7 SECONDS AND CONTINUE
-</div>
+      <div class="timer">
+        Please wait
+        <strong><span id="timer1">7</span> seconds</strong>
+      </div>
+      <button id="nextBtn" disabled>Next (please wait)</button>
+    </main>
 
-<!-- STEP 1 -->
+    <!-- STEP 2 -->
+    <main id="step2" class="card hidden">
+      <div class="step-label">Step 2 of 2</div>
+      <h1>One more step</h1>
+      <p>Wait for the timer to finish, then tap Get Link to see the available links.</p>
 
-<div id="step1">
+      <div class="ad-label">Advertisement</div>
+      <div class="ad-box large" id="ad300"></div>
 
-<p>Advertisement</p>
+      <div class="timer">
+        Please wait
+        <strong><span id="timer2">5</span> seconds</strong>
+      </div>
+      <button id="getLinkBtn" disabled>Get Link (please wait)</button>
+    </main>
 
-<div class="ad-box" id="ad1"></div>
+    <!-- INTERNAL LINK DIRECTORY -->
+    <main id="linkPage" class="card hidden">
+      <div class="step-label">Link directory</div>
+      <h1>Available Links</h1>
+      <p>Select the link you want to open.</p>
 
-<div class="timer" id="timer1">
-Please wait 7 seconds...
-</div>
+      <div class="link-list">
+        <div class="link-card">
+          <h3>LINK 1</h3>
+          <p>Main download / file link</p>
+          <a class="link-button"
+             href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
+             target="_blank" rel="noopener noreferrer">Open Link 1</a>
+        </div>
 
-<button id="next1" class="btn hidden" onclick="showStep2()">
-CONTINUE
-</button>
+        <div class="link-card disabled">
+          <h3>LINK 2</h3>
+          <p>Link not added yet</p>
+          <button type="button" disabled>Coming Soon</button>
+        </div>
 
-</div>
+        <div class="link-card disabled">
+          <h3>LINK 3</h3>
+          <p>Link not added yet</p>
+          <button type="button" disabled>Coming Soon</button>
+        </div>
+      </div>
 
-<!-- STEP 2 -->
+      <button class="secondary" type="button" onclick="location.reload()">Back to start</button>
+    </main>
 
-<div id="step2" class="hidden">
+    <footer>AS-Tick Script Hub</footer>
+  </div>
 
-<div class="banner">
-WAIT 5 SECONDS AND CONTINUE
-</div>
+  <script>
+    // Adsterra 468x60 banner
+    function loadAd468() {
+      const slot = document.getElementById('ad468');
+      if (slot.dataset.loaded) return;
+      slot.dataset.loaded = 'true';
 
-<p>Advertisement</p>
+      const options = document.createElement('script');
+      options.textContent = `
+        atOptions = {
+          'key' : '4a0f9f4f79426fe7c7f7f51d5757b276',
+          'format' : 'iframe',
+          'height' : 60,
+          'width' : 468,
+          'params' : {}
+        };
+      `;
+      slot.appendChild(options);
 
-<div class="ad-box" id="ad2"></div>
-
-<div class="timer" id="timer2">
-Please wait 5 seconds...
-</div>
-
-<button id="next2" class="btn hidden" onclick="showFinal()">
-CONTINUE TO LINK
-</button>
-
-</div>
-
-<!-- FINAL PAGE -->
-
-<div id="final" class="hidden">
-
-<h2>Your Link is Ready!</h2>
-
-<p>Click the link below to open TeraShare:</p>
-
-<a
-class="final-link"
-href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
-target="_blank"
-rel="noopener noreferrer">
-
-https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ
-
-</a>
-
-<button class="btn green"
-onclick="window.open('https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ','_blank')">
-
-OPEN TERASHARE
-
-</button>
-
-</div>
-
-<div class="footer">
-AS-Tick Script Hub
-</div>
-
-</div>
-
-<script>
-
-// AD 1: 468x60
-function loadAd1() {
-
-    const box = document.getElementById("ad1");
-
-    window.atOptions = {
-        'key': '4a0f9f4f79426fe7c7f7f51d5757b276',
-        'format': 'iframe',
-        'height': 60,
-        'width': 468,
-        'params': {}
-    };
-
-    const script = document.createElement("script");
-    script.src = "https://bauval.org/22/4a0f9f4f79426fe7c7f7f51d5757b276";
-    box.appendChild(script);
-}
-
-
-// AD 2: 300x250
-function loadAd2() {
-
-    const box = document.getElementById("ad2");
-
-    window.atOptions = {
-        'key': '044ccee5730ced0f1ab0026b0b216c54',
-        'format': 'iframe',
-        'height': 250,
-        'width': 300,
-        'params': {}
-    };
-
-    const script = document.createElement("script");
-    script.src = "https://bauval.org/22/044ccee5730ced0f1ab0026b0b216c54";
-    box.appendChild(script);
-}
-
-
-// TIMER 1: 7 seconds
-let seconds1 = 7;
-
-const countdown1 = setInterval(function() {
-
-    seconds1--;
-
-    document.getElementById("timer1").textContent =
-        "Please wait " + seconds1 + " seconds...";
-
-    if (seconds1 <= 0) {
-
-        clearInterval(countdown1);
-
-        document.getElementById("timer1").textContent =
-            "You can continue now!";
-
-        document.getElementById("next1")
-            .classList.remove("hidden");
-
+      const adScript = document.createElement('script');
+      adScript.src = 'https://bauval.org/22/4a0f9f4f79426fe7c7f7f51d5757b276';
+      slot.appendChild(adScript);
     }
 
-}, 1000);
+    // Adsterra 300x250 banner
+    function loadAd300() {
+      const slot = document.getElementById('ad300');
+      if (slot.dataset.loaded) return;
+      slot.dataset.loaded = 'true';
 
+      const options = document.createElement('script');
+      options.textContent = `
+        atOptions = {
+          'key' : '044ccee5730ced0f1ab0026b0b216c54',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      `;
+      slot.appendChild(options);
 
-// STEP 2
-function showStep2() {
+      const adScript = document.createElement('script');
+      adScript.src = 'https://bauval.org/22/044ccee5730ced0f1ab0026b0b216c54';
+      slot.appendChild(adScript);
+    }
 
-    document.getElementById("step1")
-        .classList.add("hidden");
+    function startTimer(seconds, display, button, enabledText, waitingText) {
+      let remaining = seconds;
+      display.textContent = remaining;
+      button.disabled = true;
+      button.textContent = waitingText;
 
-    document.getElementById("step2")
-        .classList.remove("hidden");
+      const interval = setInterval(() => {
+        remaining--;
+        display.textContent = Math.max(remaining, 0);
 
-    loadAd2();
-
-    let seconds2 = 5;
-
-    document.getElementById("timer2").textContent =
-        "Please wait 5 seconds...";
-
-    const countdown2 = setInterval(function() {
-
-        seconds2--;
-
-        document.getElementById("timer2").textContent =
-            "Please wait " + seconds2 + " seconds...";
-
-        if (seconds2 <= 0) {
-
-            clearInterval(countdown2);
-
-            document.getElementById("timer2").textContent =
-                "Your link is ready!";
-
-            document.getElementById("next2")
-                .classList.remove("hidden");
-
+        if (remaining <= 0) {
+          clearInterval(interval);
+          button.disabled = false;
+          button.textContent = enabledText;
         }
+      }, 1000);
+    }
 
-    }, 1000);
+    const nextBtn = document.getElementById('nextBtn');
+    const getLinkBtn = document.getElementById('getLinkBtn');
 
-}
+    loadAd468();
 
+    startTimer(
+      7,
+      document.getElementById('timer1'),
+      nextBtn,
+      'Next',
+      'Next (please wait)'
+    );
 
-// FINAL PAGE
-function showFinal() {
+    nextBtn.addEventListener('click', () => {
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
 
-    document.getElementById("step2")
-        .classList.add("hidden");
+      loadAd300();
 
-    document.getElementById("final")
-        .classList.remove("hidden");
+      startTimer(
+        5,
+        document.getElementById('timer2'),
+        getLinkBtn,
+        'Get Link',
+        'Get Link (please wait)'
+      );
 
-}
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
+    getLinkBtn.addEventListener('click', () => {
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('linkPage').classList.remove('hidden');
 
-// Load first ad
-loadAd1();
-
-</script>
-
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
-</html>
+    </html>
