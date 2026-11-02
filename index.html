@@ -7,397 +7,456 @@
 <title>AS-Tick Script Hub</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial,sans-serif;color:#fff;background:#050505;
-  min-height:100vh;overflow-x:hidden
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body::before{
-  content:"";position:fixed;inset:-50%;z-index:-2;
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+  min-height: 100vh;
+  background: #050505;
+  overflow-x: hidden;
+}
+
+/* Animated red background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: -1;
   background:
-    radial-gradient(ellipse at 20% 20%,#7b0000,transparent 35%),
-    radial-gradient(ellipse at 80% 70%,#bd0000,transparent 30%),
-    radial-gradient(ellipse at 50% 50%,#240000,transparent 45%),#030303;
-  animation:bgMove 12s ease-in-out infinite alternate
+    radial-gradient(circle at 30% 40%, #8b0000 0%, transparent 25%),
+    radial-gradient(circle at 70% 60%, #4d0000 0%, transparent 30%),
+    radial-gradient(circle at 50% 50%, #160000 0%, #000 60%);
+  animation: smoke 10s infinite alternate ease-in-out;
 }
 
-body::after{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(120deg,transparent 40%,rgba(255,0,0,.08),transparent 60%);
-  animation:redFlash 5s infinite alternate
+@keyframes smoke {
+  from { transform: translate(-5%, -5%) scale(1); }
+  to { transform: translate(5%, 5%) scale(1.2); }
 }
 
-@keyframes bgMove{
-  from{transform:translate(-3%,-2%)}
-  to{transform:translate(3%,2%) rotate(5deg)}
-}
-@keyframes redFlash{from{opacity:.3}to{opacity:.9}}
-
-.container{max-width:850px;width:100%;margin:auto;padding:18px 14px 30px}
-header{text-align:center;padding:22px 10px}
-
-.logo-title{
-  font-size:clamp(35px,8vw,65px);font-weight:900;font-style:italic;
-  text-shadow:0 0 12px red,0 0 28px #900;letter-spacing:2px
-}
-.logo-title span{color:#ff1717}
-.subtitle{color:#bbb;letter-spacing:3px;font-size:13px;margin-top:5px}
-
-.panel{
-  background:rgba(0,0,0,.88);border:2px solid #ff1616;
-  border-radius:20px;padding:20px;margin:18px 0;
-  box-shadow:0 0 18px rgba(255,0,0,.3)
+header {
+  text-align: center;
+  padding: 25px 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff2222;
+  text-shadow: 0 0 15px red;
 }
 
-.step-label{
-  display:inline-block;background:#e60000;padding:6px 15px;
-  border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px
+.container {
+  width: 95%;
+  max-width: 850px;
+  margin: auto;
+  padding: 15px;
+  text-align: center;
 }
 
-h2{font-size:26px;margin-bottom:8px}
-.description{color:#ccc;margin-bottom:20px;line-height:1.5}
-.ad-title{text-align:center;color:#ddd;font-weight:bold;margin:15px 0 10px}
-
-.ad-box{
-  width:100%;max-width:100%;overflow:hidden;min-height:60px;
-  display:flex;align-items:center;justify-content:center;
-  margin:10px auto 18px;border:1px solid #333;border-radius:8px;
-  background:#080808
+.panel {
+  background: rgba(15, 15, 15, 0.92);
+  border: 1px solid #ff2222;
+  border-radius: 12px;
+  padding: 22px 15px;
+  margin: 20px auto;
+  box-shadow: 0 0 15px rgba(255,0,0,0.25);
 }
 
-.timer{
-  text-align:center;border:1px solid #ff1616;border-radius:12px;
-  padding:14px;max-width:400px;margin:18px auto;font-size:18px;color:#ddd
+.ad-box {
+  background: #111;
+  border: 1px dashed #555;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 15px auto;
+  max-width: 100%;
+  overflow: hidden;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.timer strong{display:block;font-size:28px;color:#ff2020;margin-top:5px}
 
-button,.download-btn{
-  display:block;width:100%;border:none;border-radius:12px;padding:15px 18px;
-  background:linear-gradient(135deg,#ff2929,#b00000);color:white;
-  font-size:18px;font-weight:bold;cursor:pointer;text-align:center;
-  text-decoration:none;transition:.2s
+.ad-box iframe {
+  max-width: 100%;
 }
-button:hover,.download-btn:hover{transform:scale(1.02);box-shadow:0 0 20px #900}
-button:disabled{background:#444;color:#aaa;cursor:not-allowed;transform:none}
-.hidden{display:none!important}
 
-.link-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px;margin-top:20px
+button, .download-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff0000, #8b0000);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 10px;
 }
-.link-card{
-  border:1px solid #ff2424;border-radius:16px;padding:15px;text-align:center;
-  background:linear-gradient(145deg,#190000,#050505);
-  box-shadow:0 0 12px rgba(255,0,0,.2)
-}
-.card-image{
-  height:135px;display:flex;justify-content:center;align-items:center;
-  margin-bottom:10px
-}
-.card-image img{width:125px;height:125px;object-fit:contain;border-radius:50%}
-.link-card h3{font-size:20px;margin:10px 0 15px}
 
-.details{
-  border:2px solid #ff1717;border-radius:16px;padding:20px;
-  margin-top:20px;background:#090909
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
 }
-.option{margin:12px 0}
-.option p{color:#ccc;margin-bottom:8px;font-weight:bold}
-.back-btn{margin-top:15px;background:#222;border:1px solid #777}
-footer{text-align:center;color:#aaa;font-size:13px;margin-top:25px}
 
-/* Ad blocker notice */
-#blockWarning{
-  display:none;position:fixed;inset:0;z-index:999999;background:#050505;
-  color:#fff;align-items:center;justify-content:center;text-align:center;
-  padding:20px
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
-.warning-card{
-  max-width:440px;width:100%;border:2px solid #ff1616;border-radius:18px;
-  padding:25px;background:#100000;box-shadow:0 0 25px rgba(255,0,0,.5)
-}
-.warning-card h2{color:#ff2525;margin-bottom:15px}
-.warning-card p{line-height:1.6;color:#ddd;margin:15px 0}
 
-@media(max-width:520px){
-  .panel{padding:15px}
-  .link-grid{grid-template-columns:1fr}
-  .card-image{height:115px}
-  .card-image img{width:110px;height:110px}
-  h2{font-size:23px}
+.link-card {
+  background: #111;
+  border: 1px solid #ff2222;
+  border-radius: 12px;
+  width: 260px;
+  padding: 18px;
+  box-shadow: 0 0 12px rgba(255,0,0,0.2);
+}
+
+.card-image {
+  width: 100%;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.link-card h3 {
+  color: #ff3333;
+  margin: 10px 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.download-option {
+  background: #171717;
+  border: 1px solid #700000;
+  border-radius: 10px;
+  margin: 15px auto;
+  padding: 15px;
+  max-width: 500px;
+}
+
+.download-option h3 {
+  margin-bottom: 8px;
+  color: #ff3333;
+}
+
+.back-btn {
+  background: #333;
+}
+
+footer {
+  text-align: center;
+  color: #888;
+  padding: 25px 10px;
+  font-size: 13px;
+}
+
+/* Adblock warning */
+#warning {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.96);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.warning-box {
+  max-width: 450px;
+  background: #160000;
+  border: 2px solid red;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+}
+
+.warning-box h2 {
+  color: #ff3333;
+  margin-bottom: 15px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ADBLOCK WARNING -->
-<div id="blockWarning">
-  <div class="warning-card">
-    <h2>⚠️ AdBlock Detected</h2>
-    <p>Please disable your AdBlocker for this website and reload.</p>
-    <p>If ads are not loading, you may also try turning off your VPN.
-       VPN detection is not available on this page.</p>
-    <button onclick="location.reload()">Reload Website</button>
-  </div>
-</div>
+<header>AS_TICK SCRIPT HUB</header>
 
 <div class="container">
 
-<header>
-  <div class="logo-title">AS<span>_</span>TICK</div>
-  <div class="subtitle">OFFICIAL SCRIPT HUB</div>
-</header>
+  <!-- STEP 1 -->
+  <section id="step1" class="panel">
+    <h2>Step 1</h2>
+    <p>Wait for the countdown to finish.</p>
 
-<!-- STEP 1: 7 SECOND AD -->
-<section class="panel" id="step1">
-  <span class="step-label">STEP 1 OF 2</span>
-  <h2>Continue to your link</h2>
-  <p class="description">Please wait for the timer to finish.</p>
+    <div id="ad468" class="ad-box"></div>
 
-  <div class="ad-title">📢 Advertisement</div>
-  <div class="ad-box" id="ad468"></div>
+    <h3 id="timer1">Please wait 7 seconds...</h3>
+    <button id="next1" disabled onclick="goStep2()">Next</button>
+  </section>
 
-  <div class="timer">
-    Please wait
-    <strong id="timer7">7 seconds</strong>
-  </div>
+  <!-- STEP 2 -->
+  <section id="step2" class="panel hidden">
+    <h2>Step 2</h2>
+    <p>Wait for the countdown to finish.</p>
 
-  <button id="next1" disabled>Next (please wait)</button>
-</section>
+    <div id="ad300" class="ad-box"></div>
 
-<!-- STEP 2: 5 SECOND AD -->
-<section class="panel hidden" id="step2">
-  <span class="step-label">STEP 2 OF 2</span>
-  <h2>One more step</h2>
-  <p class="description">Wait for the timer, then tap Next.</p>
+    <h3 id="timer2">Please wait 5 seconds...</h3>
+    <button id="next2" disabled onclick="showCards()">Next</button>
+  </section>
 
-  <div class="ad-title">📢 Advertisement</div>
-  <div class="ad-box" id="ad300"></div>
+  <!-- GAME CARDS -->
+  <section id="cardsSection" class="panel hidden">
+    <h2>Available Links</h2>
+    <p>Select your option below.</p>
 
-  <div class="timer">
-    Please wait
-    <strong id="timer5">5 seconds</strong>
-  </div>
+    <div class="cards">
 
-  <button id="next2" disabled>Next (please wait)</button>
-</section>
-
-<!-- AVAILABLE LINKS -->
-<section class="panel hidden" id="linkSection">
-  <span class="step-label">AVAILABLE LINKS</span>
-  <h2>Choose your download</h2>
-  <p class="description">Select a card and press Open.</p>
-
-  <div class="link-grid">
-
-    <!-- 2022 FF CARD -->
-    <div class="link-card">
-      <div class="card-image">
-        <img src="cr7-logo.png" alt="2022 FF logo">
+      <div class="link-card">
+        <div class="card-image">
+          <img src="cr7-logo.png" alt="2022 FF logo">
+        </div>
+        <h3>2022 FF</h3>
+        <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
-      <h3>2022 FF</h3>
-      <button onclick="openDownload('ff2022')">Open ↗</button>
-    </div>
 
-    <!-- 2019 FF OLD CARD -->
-    <div class="link-card">
-      <div class="card-image">
-        <img src="2019-logo.png" alt="2019 FF Old logo">
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2019-logo.png" alt="2019 FF Old logo">
+        </div>
+        <h3>2019 FF Old</h3>
+        <button onclick="openDownload('old2019')">Open ↗</button>
       </div>
-      <h3>2019 FF Old</h3>
-      <button onclick="openDownload('old2019')">Open ↗</button>
+
     </div>
+  </section>
 
+  <!-- DOWNLOAD PANEL -->
+  <section id="downloadSection" class="panel hidden">
+    <h2 id="downloadTitle">Download</h2>
+
+    <div id="ad728" class="ad-box"></div>
+
+    <div id="downloadOptions"></div>
+
+    <button class="back-btn" onclick="backToCards()">⬅ Back</button>
+  </section>
+
+</div>
+
+<footer>
+  AS-Tick Script Hub © 2026
+</footer>
+
+<!-- Adblock warning -->
+<div id="warning">
+  <div class="warning-box">
+    <h2>AdBlock Detected</h2>
+    <p>Please disable your ad blocker if you want advertisements to load.</p>
+    <p style="margin-top:10px;">
+      If ads do not load, try turning off VPN or refreshing the page.
+    </p>
+    <button onclick="location.reload()">Refresh</button>
   </div>
-</section>
-
-<!-- DOWNLOAD PANEL -->
-<section class="panel hidden" id="downloadSection">
-  <span class="step-label">YOUR DOWNLOAD</span>
-  <h2 id="downloadTitle">Download</h2>
-  <p class="description">Advertisement is displayed below.</p>
-
-  <div class="ad-title">📢 Advertisement</div>
-  <div class="ad-box" id="ad728"></div>
-
-  <div id="downloadOptions" class="details"></div>
-
-  <button class="back-btn" onclick="backToLinks()">← Back to Available Links</button>
-</section>
-
-<footer>AS-Tick Script Hub | Enjoy Your Download ❤️</footer>
 </div>
 
 <script>
-/* Adsterra loader */
-function loadAd(containerId,key,width,height){
-  const container=document.getElementById(containerId);
-
-  if(!container || container.dataset.loaded==="yes")return;
-
-  container.dataset.loaded="yes";
-  container.innerHTML="";
-
-  const options=document.createElement("script");
-  options.text=`
-    atOptions={
-      'key':'${key}',
-      'format':'iframe',
-      'height':${height},
-      'width':${width},
-      'params':{}
-    };
-  `;
-
-  const adScript=document.createElement("script");
-  adScript.src="https://bauval.org/22/"+key;
-  adScript.async=true;
-
-  container.appendChild(options);
-  container.appendChild(adScript);
-}
-
-/* First banner: 468x60 */
-loadAd("ad468","4a0f9f4f79426fe7c7f7f51d5757b276",468,60);
-
-/* 7-second countdown */
-let seconds7=7;
-const timer7=document.getElementById("timer7");
-const next1=document.getElementById("next1");
-
-const interval7=setInterval(()=>{
-  seconds7--;
-
-  if(seconds7>0){
-    timer7.textContent=seconds7+" seconds";
-  }else{
-    clearInterval(interval7);
-    timer7.textContent="Completed!";
-    next1.disabled=false;
-    next1.textContent="Next →";
-  }
-},1000);
-
-/* Step 1 -> Step 2 */
-next1.addEventListener("click",()=>{
-  document.getElementById("step1").classList.add("hidden");
-  document.getElementById("step2").classList.remove("hidden");
-
-  loadAd("ad300","044ccee5730ced0f1ab0026b0b216c54",300,250);
-});
-
-/* 5-second countdown */
-let seconds5=5;
-const timer5=document.getElementById("timer5");
-const next2=document.getElementById("next2");
-
-const interval5=setInterval(()=>{
-  seconds5--;
-
-  if(seconds5>0){
-    timer5.textContent=seconds5+" seconds";
-  }else{
-    clearInterval(interval5);
-    timer5.textContent="Completed!";
-    next2.disabled=false;
-    next2.textContent="Next →";
-  }
-},1000);
-
-/* Step 2 -> link cards */
-next2.addEventListener("click",()=>{
-  document.getElementById("step2").classList.add("hidden");
-  document.getElementById("linkSection").classList.remove("hidden");
-});
-
-/* Download destinations */
-const downloadData={
-  ff2022:{
-    title:"2022 FF Download",
-    options:`
-      <div class="option">
-        <p>Option 1 — TeraShare</p>
-        <a class="download-btn"
-        href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
-        target="_blank" rel="noopener noreferrer">
-        Download Option 1</a>
-      </div>
-
-      <div class="option">
-        <p>Option 2 — MediaFire</p>
-        <a class="download-btn"
-        href="https://www.mediafire.com/file/qsh6zxo0vspdsq1/Free+Fire_1.71.0.apk/file"
-        target="_blank" rel="noopener noreferrer">
-        Download Option 2</a>
-      </div>
-    `
+/* Download URLs */
+const downloadData = {
+  ff2022: {
+    title: "2022 FF",
+    options: [
+      {
+        name: "Option 1 - TeraShare",
+        url: "https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
+      },
+      {
+        name: "Option 2 - MediaFire",
+        url: "https://www.mediafire.com/file/qsh6zxo0vspdsq1/Free+Fire_1.71.0.apk/file"
+      }
+    ]
   },
 
-  old2019:{
-    title:"2019 FF Old Download",
-    options:`
-      <div class="option">
-        <p>MediaFire Download</p>
-        <a class="download-btn"
-        href="https://www.mediafire.com/file/mk7peq297z295l8/FreeFire(Apk+2).apk/file"
-        target="_blank" rel="noopener noreferrer">
-        Download 2019 FF Old</a>
-      </div>
-    `
+  old2019: {
+    title: "2019 FF Old",
+    options: [
+      {
+        name: "MediaFire Download",
+        url: "https://www.mediafire.com/file/mk7peq297z295l8/FreeFire(Apk+2).apk/file"
+      }
+    ]
   }
 };
 
-/* Open card -> 728x90 ad -> download options */
-function openDownload(type){
-  const data=downloadData[type];
+/* Load Adsterra ad */
+function loadAd(containerId, key, width, height) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
 
-  document.getElementById("linkSection").classList.add("hidden");
+  const adFrame = document.createElement("div");
+  adFrame.style.width = width + "px";
+  adFrame.style.height = height + "px";
+  adFrame.style.maxWidth = "100%";
+  adFrame.style.overflow = "hidden";
+
+  container.appendChild(adFrame);
+
+  const optionsScript = document.createElement("script");
+  optionsScript.text = `
+    atOptions = {
+      'key': '${key}',
+      'format': 'iframe',
+      'height': ${height},
+      'width': ${width},
+      'params': {}
+    };
+  `;
+
+  const adScript = document.createElement("script");
+  adScript.src = "https://bauval.org/22/" + key;
+  adScript.async = true;
+
+  adFrame.appendChild(optionsScript);
+  adFrame.appendChild(adScript);
+}
+
+/* Start first ad */
+loadAd(
+  "ad468",
+  "4a0f9f4f79426fe7c7f7f51d5757b276",
+  468,
+  60
+);
+
+/* Step 1 timer */
+let time1 = 7;
+
+const countdown1 = setInterval(() => {
+  time1--;
+
+  document.getElementById("timer1").textContent =
+    time1 > 0 ? "Please wait " + time1 + " seconds..." : "You can continue now!";
+
+  if (time1 <= 0) {
+    clearInterval(countdown1);
+    document.getElementById("next1").disabled = false;
+  }
+}, 1000);
+
+/* Step 2 */
+function goStep2() {
+  document.getElementById("step1").classList.add("hidden");
+  document.getElementById("step2").classList.remove("hidden");
+
+  loadAd(
+    "ad300",
+    "044ccee5730ced0f1ab0026b0b216c54",
+    300,
+    250
+  );
+
+  let time2 = 5;
+
+  const countdown2 = setInterval(() => {
+    time2--;
+
+    document.getElementById("timer2").textContent =
+      time2 > 0 ? "Please wait " + time2 + " seconds..." : "You can continue now!";
+
+    if (time2 <= 0) {
+      clearInterval(countdown2);
+      document.getElementById("next2").disabled = false;
+    }
+  }, 1000);
+}
+
+/* Show cards */
+function showCards() {
+  document.getElementById("step2").classList.add("hidden");
+  document.getElementById("cardsSection").classList.remove("hidden");
+}
+
+/* Open selected download */
+function openDownload(type) {
+  const data = downloadData[type];
+
+  document.getElementById("cardsSection").classList.add("hidden");
   document.getElementById("downloadSection").classList.remove("hidden");
 
-  document.getElementById("downloadTitle").textContent=data.title;
-  document.getElementById("downloadOptions").innerHTML=data.options;
+  document.getElementById("downloadTitle").textContent = data.title;
 
-  loadAd("ad728","747e0e46ad2293f09e331ec38ab28880",728,90);
+  const optionsContainer = document.getElementById("downloadOptions");
+  optionsContainer.innerHTML = "";
 
-  window.scrollTo({top:0,behavior:"smooth"});
+  data.options.forEach(option => {
+    const item = document.createElement("div");
+    item.className = "download-option";
+
+    const title = document.createElement("h3");
+    title.textContent = option.name;
+
+    const link = document.createElement("a");
+    link.className = "download-btn";
+    link.href = option.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Download ↗";
+
+    item.appendChild(title);
+    item.appendChild(link);
+    optionsContainer.appendChild(item);
+  });
+
+  loadAd(
+    "ad728",
+    "747e0e46ad2293f09e331ec38ab28880",
+    728,
+    90
+  );
 }
 
 /* Back button */
-function backToLinks(){
+function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
-  document.getElementById("linkSection").classList.remove("hidden");
-
-  window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-/* Basic adblock detection */
-async function checkAdBlock(){
-  let blocked=false;
-
-  const bait=document.createElement("div");
-  bait.className="adsbox ad-banner ad-unit";
-  bait.style.cssText="position:absolute;left:-9999px;width:10px;height:10px";
+/* Basic adblock check - not guaranteed to detect every blocker */
+setTimeout(() => {
+  const bait = document.createElement("div");
+  bait.className = "adsbox ad-banner ad-unit";
+  bait.style.height = "10px";
+  bait.style.position = "absolute";
+  bait.style.left = "-9999px";
 
   document.body.appendChild(bait);
-  await new Promise(resolve=>setTimeout(resolve,800));
 
-  if(bait.offsetHeight===0 || bait.offsetWidth===0){
-    blocked=true;
-  }
+  setTimeout(() => {
+    if (bait.offsetHeight === 0 || bait.offsetParent === null) {
+      document.getElementById("warning").style.display = "flex";
+    }
 
-  bait.remove();
-
-  if(blocked){
-    document.getElementById("blockWarning").style.display="flex";
-  }
-}
-
-window.addEventListener("load",()=>{
-  setTimeout(checkAdBlock,1500);
-});
+    bait.remove();
+  }, 500);
+}, 1500);
 </script>
 
 </body>
