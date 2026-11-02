@@ -21,7 +21,6 @@
 <meta property="og:url" content="https://as-tick.github.io/AS-Tick/">
 <meta property="og:type" content="website">
 
-<!-- Twitter / X preview -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AS-Tick Script Hub">
 <meta name="twitter:description" content="AS-Tick Official Script Hub">
@@ -103,7 +102,7 @@ header {
   max-width: 100%;
 }
 
-button, .download-btn {
+button, .download-btn, .youtube-btn {
   display: inline-block;
   background: linear-gradient(135deg, #ff0000, #8b0000);
   color: white;
@@ -174,6 +173,38 @@ button:disabled {
 .download-option h3 {
   margin-bottom: 8px;
   color: #ff3333;
+}
+
+/* YouTube tutorial */
+.youtube-section {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #900000;
+  border-radius: 10px;
+  background: #111;
+}
+
+.youtube-section h3 {
+  color: #ff3333;
+  margin-bottom: 12px;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  border: 0;
 }
 
 .back-btn {
@@ -249,6 +280,7 @@ footer {
 
     <div class="cards">
 
+      <!-- 2022 FF LOGO - UNCHANGED -->
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
@@ -257,6 +289,7 @@ footer {
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
 
+      <!-- 2019 FF LOGO - UNCHANGED -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
@@ -273,6 +306,32 @@ footer {
     <h2 id="downloadTitle">Download</h2>
 
     <div id="ad728" class="ad-box"></div>
+
+    <!-- YouTube tutorial for 2022 FF only -->
+    <div id="youtubeTutorial" class="youtube-section hidden">
+
+      <h3>📺 2022 FF YouTube Tutorial</h3>
+
+      <div class="video-wrapper">
+        <iframe
+          id="tutorialFrame"
+          src=""
+          title="2022 FF YouTube Tutorial"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <a
+        class="youtube-btn"
+        href="https://youtu.be/paWvVTU2JwI"
+        target="_blank"
+        rel="noopener noreferrer">
+        Watch on YouTube ↗
+      </a>
+
+    </div>
 
     <div id="downloadOptions"></div>
 
@@ -298,6 +357,7 @@ footer {
 </div>
 
 <script>
+
 /* Download URLs */
 const downloadData = {
   ff2022: {
@@ -411,7 +471,7 @@ function goStep2() {
   }, 1000);
 }
 
-/* Show game cards */
+/* Show cards */
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
@@ -429,6 +489,20 @@ function openDownload(type) {
   const optionsContainer = document.getElementById("downloadOptions");
   optionsContainer.innerHTML = "";
 
+  /* Show YouTube tutorial only for 2022 FF */
+  const tutorial = document.getElementById("youtubeTutorial");
+  const tutorialFrame = document.getElementById("tutorialFrame");
+
+  if (type === "ff2022") {
+    tutorial.classList.remove("hidden");
+    tutorialFrame.src =
+      "https://www.youtube-nocookie.com/embed/paWvVTU2JwI";
+  } else {
+    tutorial.classList.add("hidden");
+    tutorialFrame.src = "";
+  }
+
+  /* Create download options */
   data.options.forEach(option => {
     const item = document.createElement("div");
     item.className = "download-option";
@@ -445,6 +519,7 @@ function openDownload(type) {
 
     item.appendChild(title);
     item.appendChild(link);
+
     optionsContainer.appendChild(item);
   });
 
@@ -460,6 +535,9 @@ function openDownload(type) {
 function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
+
+  /* Stop video playback after returning */
+  document.getElementById("tutorialFrame").src = "";
 }
 
 /* Basic AdBlock detection */
@@ -480,7 +558,9 @@ setTimeout(() => {
     bait.remove();
   }, 500);
 }, 1500);
+
 </script>
 
 </body>
-</html>
+  </html>
+  
