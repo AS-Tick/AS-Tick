@@ -2,306 +2,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AS-Tick Script Hub</title>
+<title>AS-Tick Script Hub</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f172a;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
 
-        .container {
-            width: 100%;
-            max-width: 450px;
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(0,0,0,0.4);
-        }
+.container {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
 
-        h1 {
-            color: #38bdf8;
-            margin-bottom: 5px;
-        }
+h1 {
+    color: #38bdf8;
+}
 
-        .subtitle {
-            color: #94a3b8;
-            font-size: 14px;
-        }
+.banner {
+    background: linear-gradient(135deg, #0284c7, #2563eb);
+    padding: 18px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-weight: bold;
+}
 
-        .banner {
-            background: linear-gradient(135deg, #0284c7, #2563eb);
-            padding: 18px;
-            margin: 20px 0;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    background: #22c55e;
+    color: white;
+}
 
-        .search {
-            width: 100%;
-            padding: 14px;
-            background: #0f172a;
-            color: white;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 16px;
-        }
+.timer {
+    color: #fbbf24;
+    font-size: 20px;
+    margin: 20px 0;
+    font-weight: bold;
+}
 
-        .script-item {
-            background: #334155;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.hidden {
+    display: none;
+}
 
-        .script-item:hover {
-            background: #475569;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .timer {
-            color: #fbbf24;
-            font-size: 20px;
-            font-weight: bold;
-            margin: 25px 0;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            margin-top: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #38bdf8;
-            color: #0f172a;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .green {
-            background: #22c55e;
-            color: white;
-        }
-
-        .back {
-            background: #475569;
-            color: white;
-        }
-
-        .footer {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #64748b;
-        }
-    </style>
+.footer {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 25px;
+}
+</style>
 </head>
 
 <body>
 
-<!-- HOME PAGE -->
+<div class="container">
 
-<div class="container" id="home">
+<h1>AS-Tick</h1>
+<p>Script Hub</p>
 
-    <h1>AS-Tick</h1>
-
-    <p class="subtitle">Script Hub</p>
-
-    <div class="banner">
-        WAIT 10 SECONDS AND GET LINK
-    </div>
-
-    <input
-        type="text"
-        id="search"
-        class="search"
-        placeholder="Search scripts..."
-        oninput="searchScripts()"
-    >
-
-    <div id="scriptList">
-
-        <div class="script-item"
-             onclick="openScript()">
-
-            <span>AS-Tick Script</span>
-
-            <span style="color:#38bdf8">
-                Get Link →
-            </span>
-
-        </div>
-
-    </div>
-
-    <p id="noResults" class="hidden">
-        No scripts found.
-    </p>
-
-    <div class="footer">
-        AS-Tick Script Hub
-    </div>
-
+<div class="banner">
+WAIT 10 SECONDS AND GET LINK
 </div>
 
+<button class="btn" id="startBtn" onclick="startTimer()">
+GET LINK
+</button>
 
-<!-- LINK PAGE -->
+<div id="timer" class="timer hidden"></div>
 
-<div class="container hidden" id="linkPage">
+<a
+id="finalLink"
+class="btn hidden"
+href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
+target="_blank"
+rel="noopener noreferrer">
 
-    <h1>AS-Tick Script</h1>
+DOWNLOAD LINK
 
-    <p class="subtitle">
-        Complete the timer to unlock your link.
-    </p>
+</a>
 
-    <div class="banner">
-        WAIT 10 SECONDS AND GET LINK
-    </div>
-
-    <div class="timer" id="timer">
-        Please wait 10 seconds...
-    </div>
-
-    <a
-        id="getLink"
-        class="btn green hidden"
-        href="https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
-        target="_blank"
-        rel="noopener noreferrer">
-
-        GET LINK
-
-    </a>
-
-    <button
-        class="btn back"
-        onclick="goBack()">
-
-        ← Back to Search
-
-    </button>
-
-    <div class="footer">
-        AS-Tick Script Hub
-    </div>
-
+<div class="footer">
+AS-Tick Script Hub
 </div>
 
+</div>
 
 <script>
 
-    let countdown;
+let countdown;
 
-    function searchScripts() {
+function startTimer() {
 
-        const input =
-            document.getElementById("search")
-            .value.toLowerCase();
+    const startBtn = document.getElementById("startBtn");
+    const timer = document.getElementById("timer");
+    const finalLink = document.getElementById("finalLink");
 
-        const item =
-            document.querySelector(".script-item");
+    startBtn.classList.add("hidden");
+    timer.classList.remove("hidden");
+    finalLink.classList.add("hidden");
 
-        const found =
-            "as-tick script".includes(input);
+    let seconds = 10;
 
-        item.style.display = found ? "flex" : "none";
+    timer.textContent = "Please wait " + seconds + " seconds...";
 
-        document.getElementById("noResults")
-            .classList.toggle("hidden", found);
+    clearInterval(countdown);
 
-    }
+    countdown = setInterval(function() {
 
+        seconds--;
 
-    function openScript() {
+        if (seconds > 0) {
 
-        document.getElementById("home")
-            .classList.add("hidden");
-
-        document.getElementById("linkPage")
-            .classList.remove("hidden");
-
-        const timer =
-            document.getElementById("timer");
-
-        const link =
-            document.getElementById("getLink");
-
-        link.classList.add("hidden");
-
-        let seconds = 10;
-
-        timer.textContent =
+            timer.textContent =
             "Please wait " + seconds + " seconds...";
 
-        clearInterval(countdown);
+        } else {
 
-        countdown = setInterval(function() {
+            clearInterval(countdown);
 
-            seconds--;
+            timer.textContent = "Your link is ready!";
 
-            if (seconds > 0) {
+            finalLink.classList.remove("hidden");
 
-                timer.textContent =
-                    "Please wait " + seconds + " seconds...";
+        }
 
-            } else {
+    }, 1000);
 
-                clearInterval(countdown);
-
-                timer.textContent =
-                    "Your link is ready!";
-
-                link.classList.remove("hidden");
-
-            }
-
-        }, 1000);
-
-    }
-
-
-    function goBack() {
-
-        clearInterval(countdown);
-
-        document.getElementById("linkPage")
-            .classList.add("hidden");
-
-        document.getElementById("home")
-            .classList.remove("hidden");
-
-    }
+}
 
 </script>
 
