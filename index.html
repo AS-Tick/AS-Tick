@@ -1,15 +1,24 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AS-Tick Script Hub</title>
-<link rel="icon" type="image/png" href="as-tick-logo.png"><meta property="og:title" content="AS-Tick Script Hub">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AS-Tick Script Hub</title>
+
+<link rel="icon" type="image/png" href="as-tick-logo.png">
+
+<meta property="og:title" content="AS-Tick Script Hub">
 <meta property="og:description" content="AS-Tick Official Script Hub">
 <meta property="og:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
 <meta property="og:url" content="https://as-tick.github.io/AS-Tick/">
-<meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AS-Tick Script Hub">
 <meta name="twitter:description" content="AS-Tick Official Script Hub">
-<meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2"><style>
+<meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
+
+<style>
 * {
   margin: 0;
   padding: 0;
@@ -41,7 +50,7 @@ body::before {
   to { transform: translate(5%, 5%) scale(1.2); }
 }
 
-/* CINEMATIC INTRO */
+/* INTRO VIDEO */
 
 #introScreen {
   position: fixed;
@@ -73,7 +82,7 @@ body::before {
   display: none;
 }
 
-/* WEBSITE STYLES */
+/* WEBSITE */
 
 header {
   text-align: center;
@@ -234,85 +243,138 @@ footer {
   padding: 25px 10px;
   font-size: 13px;
 }
-</style></head><body><!-- INTRO VIDEO --><div id="introScreen">
-  <video
-    id="introVideo"
-    autoplay
-    muted
-    playsinline
-    preload="auto">
+</style>
+</head>
+
+<body>
+
+<!-- INTRO VIDEO -->
+
+<div id="introScreen">
+  <video id="introVideo" autoplay muted playsinline preload="auto">
     <source src="./intro.mp4" type="video/mp4">
   </video>
-</div><header>AS_TICK SCRIPT HUB</header><div class="container">  <!-- STEP 1 -->  <section id="step1" class="panel">
+</div>
+
+<header>AS_TICK SCRIPT HUB</header>
+
+<div class="container">
+
+  <!-- STEP 1 -->
+
+  <section id="step1" class="panel">
     <h2>Step 1</h2>
-    <p>Wait for the countdown to finish.</p><div id="ad468" class="ad-box"></div>
+    <p>Wait for the countdown to finish.</p>
 
-<h3 id="timer1">Please wait 7 seconds...</h3>
-<button id="next1" disabled onclick="goStep2()">Next</button>
+    <div id="ad468" class="ad-box"></div>
 
-  </section>  <!-- STEP 2 -->  <section id="step2" class="panel hidden">
+    <h3 id="timer1">Please wait 7 seconds...</h3>
+    <button id="next1" disabled onclick="goStep2()">Next</button>
+  </section>
+
+  <!-- STEP 2 -->
+
+  <section id="step2" class="panel hidden">
     <h2>Step 2</h2>
-    <p>Wait for the countdown to finish.</p><div id="ad300" class="ad-box"></div>
+    <p>Wait for the countdown to finish.</p>
 
-<h3 id="timer2">Please wait 5 seconds...</h3>
-<button id="next2" disabled onclick="showCards()">Next</button>
+    <div id="ad300" class="ad-box"></div>
 
-  </section>  <!-- GAME CARDS -->  <section id="cardsSection" class="panel hidden">
+    <h3 id="timer2">Please wait 5 seconds...</h3>
+    <button id="next2" disabled onclick="showCards()">Next</button>
+  </section>
+
+  <!-- GAME CARDS -->
+
+  <section id="cardsSection" class="panel hidden">
     <h2>Available Links</h2>
-    <p>Select your option below.</p><div class="cards">
+    <p>Select your option below.</p>
 
-  <div class="link-card">
-    <div class="card-image">
-      <img src="cr7-logo.png" alt="2022 FF logo">
-    </div>
-    <h3>2022 FF</h3>
-    <button onclick="openDownload('ff2022')">Open ↗</button>
-  </div>
+    <div class="cards">
 
-  <div class="link-card">
-    <div class="card-image">
-      <img src="2019-logo.png" alt="2019 FF Old logo">
+      <!-- 2022 FF -->
+
+      <div class="link-card">
+        <div class="card-image">
+          <img src="cr7-logo.png" alt="2022 FF logo">
+        </div>
+
+        <h3>2022 FF</h3>
+        <button onclick="openDownload('ff2022')">Open ↗</button>
+      </div>
+
+      <!-- 2019 FF -->
+
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2019-logo.png" alt="2019 FF Old logo">
+        </div>
+
+        <h3>2019 FF Old</h3>
+        <button onclick="openDownload('old2019')">Open ↗</button>
+      </div>
+
+      <!-- NEW 2017 FF -->
+
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2019-logo.png" alt="2017 FF Old logo">
+        </div>
+
+        <h3>2017 FF Old</h3>
+        <button onclick="openDownload('old2017')">Open ↗</button>
+      </div>
+
     </div>
-    <h3>2019 FF Old</h3>
-    <button onclick="openDownload('old2019')">Open ↗</button>
-  </div>
+  </section>
+
+  <!-- DOWNLOAD PANEL -->
+
+  <section id="downloadSection" class="panel hidden">
+
+    <h2 id="downloadTitle">Download</h2>
+
+    <div id="ad728" class="ad-box"></div>
+
+    <div id="youtubeTutorial" class="youtube-section hidden">
+
+      <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
+
+      <div class="video-wrapper">
+        <iframe
+          id="tutorialFrame"
+          src="about:blank"
+          title="YouTube Tutorial"
+          loading="eager"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <a
+        id="youtubeButton"
+        class="youtube-btn"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer">
+        Watch on YouTube ↗
+      </a>
+
+    </div>
+
+    <div id="downloadOptions"></div>
+
+    <button class="back-btn" onclick="backToCards()">⬅ Back</button>
+
+  </section>
 
 </div>
 
-  </section>  <!-- DOWNLOAD PANEL -->  <section id="downloadSection" class="panel hidden">
-    <h2 id="downloadTitle">Download</h2><div id="ad728" class="ad-box"></div>
-
-<div id="youtubeTutorial" class="youtube-section hidden">
-  <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
-
-  <div class="video-wrapper">
-    <iframe
-      id="tutorialFrame"
-      src="about:blank"
-      title="YouTube Tutorial"
-      loading="eager"
-      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <a
-    id="youtubeButton"
-    class="youtube-btn"
-    href="#"
-    target="_blank"
-    rel="noopener noreferrer">
-    Watch on YouTube ↗
-  </a>
-</div>
-
-<div id="downloadOptions"></div>
-
-<button class="back-btn" onclick="backToCards()">⬅ Back</button>
-
-  </section></div><footer>
+<footer>
   AS-Tick Script Hub © 2026
-</footer><script>
+</footer>
+
+<script>
 
 /* INTRO VIDEO + TIMER CONTROL */
 
@@ -326,23 +388,17 @@ function finishIntro() {
   if (introFinished) return;
 
   introFinished = true;
-
   introScreen.classList.add("intro-exit");
 
   setTimeout(() => {
     introScreen.classList.add("intro-hidden");
     introVideo.pause();
-
-    // Intro completely gone -> start Step 1 timer
     startStep1Countdown();
-
   }, 1000);
 }
 
-/* VIDEO ENDS -> INTRO FADES -> STEP 1 TIMER STARTS */
 introVideo.addEventListener("ended", finishIntro);
 
-/* MUTED AUTOPLAY */
 window.addEventListener("load", () => {
   introVideo.muted = true;
 
@@ -351,14 +407,12 @@ window.addEventListener("load", () => {
   });
 });
 
-/* If video fails to load, avoid locking visitor on black screen */
-introVideo.addEventListener("error", () => {
-  finishIntro();
-});
+introVideo.addEventListener("error", finishIntro);
 
 /* DOWNLOAD URLS */
 
 const downloadData = {
+
   ff2022: {
     title: "2022 FF",
     options: [
@@ -378,14 +432,27 @@ const downloadData = {
   },
 
   old2019: {
-    title: "2019 FF",
+    title: "2019 FF Old",
     options: [
       {
         name: "MediaFire Download",
         url: "https://www.mediafire.com/file/mk7peq297z295l8/FreeFire(Apk+2).apk/file"
       }
     ]
+  },
+
+  /* NEW 2017 FF DOWNLOAD */
+
+  old2017: {
+    title: "2017 FF Old",
+    options: [
+      {
+        name: "MediaFire Download",
+        url: "https://www.mediafire.com/file/atkbwjsz5w72jla/freefire2017.apk/file"
+      }
+    ]
   }
+
 };
 
 /* LOAD ADSTERRA */
@@ -425,6 +492,7 @@ function loadAd(containerId, key, width, height) {
 }
 
 /* FIRST AD */
+
 loadAd(
   "ad468",
   "4a0f9f4f79426fe7c7f7f51d5757b276",
@@ -432,7 +500,8 @@ loadAd(
   60
 );
 
-/* STEP 1 COUNTDOWN - STARTS AFTER INTRO */
+/* STEP 1 COUNTDOWN */
+
 function startStep1Countdown() {
   if (countdown1Started) return;
 
@@ -461,6 +530,7 @@ function startStep1Countdown() {
 }
 
 /* STEP 2 */
+
 function goStep2() {
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
@@ -496,18 +566,21 @@ function goStep2() {
 }
 
 /* SHOW CARDS */
+
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
 /* OPEN DOWNLOAD */
+
 function openDownload(type) {
   const data = downloadData[type];
   if (!data) return;
 
   document.getElementById("cardsSection").classList.add("hidden");
   document.getElementById("downloadSection").classList.remove("hidden");
+
   document.getElementById("downloadTitle").textContent = data.title;
 
   const optionsContainer = document.getElementById("downloadOptions");
@@ -518,6 +591,8 @@ function openDownload(type) {
   const tutorialTitle = document.getElementById("youtubeTitle");
   const youtubeButton = document.getElementById("youtubeButton");
 
+  /* 2022 TUTORIAL */
+
   if (type === "ff2022") {
     tutorial.classList.remove("hidden");
 
@@ -526,12 +601,22 @@ function openDownload(type) {
     youtubeButton.href = "https://youtu.be/paWvVTU2JwI";
   }
 
+  /* 2019 TUTORIAL */
+
   else if (type === "old2019") {
     tutorial.classList.remove("hidden");
 
     tutorialTitle.textContent = "📺 2019 FF Old YouTube Tutorial";
     tutorialFrame.src = "https://www.youtube.com/embed/1wmRAtVKckA";
     youtubeButton.href = "https://youtu.be/1wmRAtVKckA";
+  }
+
+  /* 2017 - NO TUTORIAL */
+
+  else {
+    tutorial.classList.add("hidden");
+    tutorialFrame.src = "about:blank";
+    youtubeButton.href = "#";
   }
 
   data.options.forEach(option => {
@@ -550,6 +635,7 @@ function openDownload(type) {
 
     item.appendChild(title);
     item.appendChild(link);
+
     optionsContainer.appendChild(item);
   });
 
@@ -562,13 +648,14 @@ function openDownload(type) {
 }
 
 /* BACK BUTTON */
+
 function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
   document.getElementById("tutorialFrame").src = "about:blank";
 }
 
-</script></body>
-</html>
-...
+</script>
 
+</body>
+</html>
