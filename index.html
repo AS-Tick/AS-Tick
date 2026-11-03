@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,6 @@
 
 <title>AS-Tick Script Hub</title>
 
-<!-- Website icon -->
 <link rel="icon" type="image/png" href="as-tick-logo.png">
 
 <!-- Open Graph / WhatsApp / Messenger preview -->
@@ -58,7 +58,7 @@ body::before {
 }
 
 /* =========================
-   AS-TICK FULL SCREEN INTRO
+   AS-TICK CINEMATIC INTRO
 ========================= */
 
 #introScreen {
@@ -68,13 +68,16 @@ body::before {
   height: 100vh;
   height: 100dvh;
   z-index: 100000;
-  background: #000;
+  background:
+    radial-gradient(circle at center, #250000 0%, #080000 45%, #000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
+/* Red smoke layers */
 #introScreen::before,
 #introScreen::after {
   content: "";
@@ -85,19 +88,67 @@ body::before {
 
 #introScreen::before {
   background:
-    radial-gradient(ellipse at 25% 45%, rgba(255,0,0,0.38), transparent 30%),
-    radial-gradient(ellipse at 75% 55%, rgba(130,0,0,0.45), transparent 35%),
-    radial-gradient(ellipse at 50% 50%, rgba(50,0,0,0.7), transparent 60%);
+    radial-gradient(ellipse at 25% 45%,
+      rgba(255,0,0,0.42), transparent 30%),
+    radial-gradient(ellipse at 75% 55%,
+      rgba(130,0,0,0.5), transparent 35%),
+    radial-gradient(ellipse at 50% 50%,
+      rgba(50,0,0,0.8), transparent 60%);
   filter: blur(35px);
   animation: introSmoke 7s infinite alternate ease-in-out;
 }
 
 #introScreen::after {
   background:
-    radial-gradient(ellipse at 70% 25%, rgba(255,0,0,0.2), transparent 25%),
-    radial-gradient(ellipse at 30% 80%, rgba(160,0,0,0.25), transparent 30%);
+    radial-gradient(ellipse at 70% 25%,
+      rgba(255,0,0,0.25), transparent 25%),
+    radial-gradient(ellipse at 30% 80%,
+      rgba(160,0,0,0.3), transparent 30%);
   filter: blur(50px);
   animation: introSmoke 10s infinite alternate-reverse ease-in-out;
+}
+
+/* Animated energy ring */
+.intro-ring {
+  position: absolute;
+  width: min(75vw, 420px);
+  aspect-ratio: 1;
+  border: 2px solid rgba(255, 0, 0, 0.65);
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px red,
+    0 0 45px rgba(255, 0, 0, 0.7),
+    inset 0 0 25px rgba(255, 0, 0, 0.5);
+  animation: ringAnimation 4s ease-in-out infinite;
+}
+
+.intro-ring.ring-two {
+  width: min(95vw, 520px);
+  border-style: dashed;
+  opacity: 0.45;
+  animation: ringAnimation 8s linear infinite reverse;
+}
+
+.intro-ring.ring-three {
+  width: min(55vw, 300px);
+  border-width: 1px;
+  opacity: 0.6;
+  animation: ringAnimation 5s ease-in-out infinite;
+}
+
+@keyframes ringAnimation {
+  0% {
+    transform: scale(0.65) rotate(0deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.08) rotate(180deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(0.65) rotate(360deg);
+    opacity: 0.15;
+  }
 }
 
 @keyframes introSmoke {
@@ -112,15 +163,51 @@ body::before {
   }
 }
 
-.intro-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 20px;
+/* Light scan effect */
+.intro-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.15;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(255, 0, 0, 0.25) 4px
+  );
+  animation: scanMove 5s linear infinite;
 }
 
+@keyframes scanMove {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(20px); }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  animation: contentEntrance 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes contentEntrance {
+  from {
+    transform: scale(1.5);
+    opacity: 0;
+    filter: blur(15px);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Logo animation */
 #introLogo {
-  width: 180px;
+  width: 190px;
   max-width: 55vw;
   height: auto;
   object-fit: contain;
@@ -134,47 +221,53 @@ body::before {
 @keyframes logoReveal {
   0% {
     opacity: 0;
-    transform: scale(0.3) rotate(-8deg);
+    transform: scale(0.3) rotate(-12deg);
     filter: blur(15px);
   }
-  70% {
+  65% {
     opacity: 1;
-    transform: scale(1.15) rotate(2deg);
+    transform: scale(1.2) rotate(3deg);
     filter: blur(0);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(0);
     filter: blur(0);
   }
 }
 
 @keyframes logoGlow {
   from {
-    filter: drop-shadow(0 0 10px red);
+    filter: drop-shadow(0 0 8px #ff0000);
   }
   to {
-    filter: drop-shadow(0 0 35px #ff0000);
+    filter:
+      drop-shadow(0 0 20px #ff0000)
+      drop-shadow(0 0 40px #a00000);
   }
 }
 
-.intro-content h1 {
+/* AS-TICK title */
+.intro-title {
   margin-top: 20px;
-  font-size: clamp(32px, 8vw, 55px);
+  font-size: clamp(35px, 10vw, 72px);
+  font-weight: 900;
   letter-spacing: 8px;
-  color: #fff;
+  color: white;
   text-shadow:
     0 0 10px red,
     0 0 25px red,
     0 0 45px darkred;
-  animation: titleReveal 1.5s ease-out;
+  animation:
+    titleReveal 1.5s ease-out,
+    titleGlitch 3s infinite 1.5s;
 }
 
 @keyframes titleReveal {
   from {
     opacity: 0;
-    transform: translateY(25px);
-    letter-spacing: 18px;
+    transform: translateY(35px);
+    letter-spacing: 20px;
   }
   to {
     opacity: 1;
@@ -183,28 +276,35 @@ body::before {
   }
 }
 
-#introNext {
-  display: none;
-  margin-top: 35px;
-  padding: 14px 38px;
-  background: linear-gradient(135deg, #ff0000, #700000);
-  color: white;
-  border: 1px solid #ff4444;
-  border-radius: 8px;
-  font-size: 17px;
+@keyframes titleGlitch {
+  0%, 90%, 100% {
+    transform: translate(0);
+  }
+  92% {
+    transform: translate(-3px, 2px);
+  }
+  94% {
+    transform: translate(3px, -2px);
+  }
+  96% {
+    transform: translate(-2px, 0);
+  }
+}
+
+/* Instagram ID */
+.intro-instagram {
+  margin-top: 15px;
+  font-size: clamp(14px, 4vw, 18px);
   font-weight: bold;
   letter-spacing: 2px;
-  box-shadow: 0 0 20px rgba(255,0,0,0.7);
-  cursor: pointer;
-  animation: nextReveal 0.7s ease-out;
+  color: #ff4545;
+  text-shadow:
+    0 0 8px red,
+    0 0 18px darkred;
+  animation: instaReveal 1.5s ease-out 0.5s both;
 }
 
-#introNext:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 35px red;
-}
-
-@keyframes nextReveal {
+@keyframes instaReveal {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -213,6 +313,51 @@ body::before {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Enter website button */
+#introNext {
+  display: none;
+  margin-top: 35px;
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #ff0000, #700000);
+  color: white;
+  border: 1px solid #ff4444;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  box-shadow:
+    0 0 15px rgba(255,0,0,0.7),
+    inset 0 0 10px rgba(255,255,255,0.1);
+  cursor: pointer;
+  animation: nextPulse 1s infinite alternate;
+}
+
+#introNext:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 35px red;
+}
+
+@keyframes nextPulse {
+  from {
+    box-shadow: 0 0 8px red;
+  }
+  to {
+    box-shadow: 0 0 28px red;
+  }
+}
+
+/* Smooth intro exit */
+#introScreen.intro-exit {
+  opacity: 0;
+  transform: scale(1.15);
+  filter: blur(8px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    filter 0.8s ease;
+  pointer-events: none;
 }
 
 /* =========================
@@ -404,17 +549,60 @@ footer {
   color: #ff3333;
   margin-bottom: 15px;
 }
+
+/* Intro mobile adjustments */
+@media (max-width: 480px) {
+  .intro-title {
+    letter-spacing: 5px;
+  }
+
+  #introLogo {
+    width: 160px;
+  }
+
+  .intro-ring {
+    width: 85vw;
+  }
+
+  .intro-ring.ring-two {
+    width: 110vw;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- FULL SCREEN LOGO INTRO -->
+<!-- =========================
+     CINEMATIC INTRO SCREEN
+========================= -->
+
 <div id="introScreen">
+
+  <div class="intro-ring"></div>
+  <div class="intro-ring ring-two"></div>
+  <div class="intro-ring ring-three"></div>
+  <div class="intro-scan"></div>
+
   <div class="intro-content">
-    <img src="as-tick-logo.png" id="introLogo" alt="AS-Tick Logo">
-    <h1>AS-TICK</h1>
-    <button id="introNext" onclick="startWebsite()">NEXT ➜</button>
+
+    <img
+      src="as-tick-logo.png"
+      id="introLogo"
+      alt="AS-Tick Logo">
+
+    <h1 class="intro-title">AS-TICK</h1>
+
+    <div class="intro-instagram">
+      INSTAGRAM: @as_tick.offical
+    </div>
+
+    <button
+      id="introNext"
+      onclick="startWebsite()">
+      ENTER WEBSITE ➜
+    </button>
+
   </div>
 </div>
 
@@ -478,7 +666,6 @@ footer {
 
     <div id="ad728" class="ad-box"></div>
 
-    <!-- YouTube tutorial dynamically changes for 2022 / 2019 -->
     <div id="youtubeTutorial" class="youtube-section hidden">
 
       <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
@@ -530,14 +717,29 @@ footer {
 
 <script>
 
-/* INTRO SCREEN */
+/* =========================
+   CINEMATIC INTRO JAVASCRIPT
+========================= */
+
 function startWebsite() {
-  document.getElementById("introScreen").style.display = "none";
+  const intro = document.getElementById("introScreen");
+
+  if (!intro) return;
+
+  intro.classList.add("intro-exit");
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  }, 800);
 }
 
-/* Show intro NEXT button after 4.5 seconds */
+/* Show ENTER button after 4.5 seconds */
 setTimeout(() => {
-  document.getElementById("introNext").style.display = "inline-block";
+  const introNext = document.getElementById("introNext");
+
+  if (introNext) {
+    introNext.style.display = "inline-block";
+  }
 }, 4500);
 
 /* Download URLs */
@@ -574,6 +776,9 @@ const downloadData = {
 /* Load Adsterra ad */
 function loadAd(containerId, key, width, height) {
   const container = document.getElementById(containerId);
+
+  if (!container) return;
+
   container.innerHTML = "";
 
   const adFrame = document.createElement("div");
@@ -585,6 +790,7 @@ function loadAd(containerId, key, width, height) {
   container.appendChild(adFrame);
 
   const optionsScript = document.createElement("script");
+
   optionsScript.text = `
     atOptions = {
       'key': '${key}',
@@ -663,7 +869,7 @@ function showCards() {
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-/* Open selected download section + its corresponding YouTube video */
+/* Open selected download section + YouTube tutorial */
 function openDownload(type) {
   const data = downloadData[type];
 
@@ -753,19 +959,4 @@ setTimeout(() => {
   bait.style.height = "10px";
   bait.style.position = "absolute";
   bait.style.left = "-9999px";
-
-  document.body.appendChild(bait);
-
-  setTimeout(() => {
-    if (bait.offsetHeight === 0 || bait.offsetParent === null) {
-      document.getElementById("warning").style.display = "flex";
-    }
-
-    bait.remove();
-  }, 500);
-}, 1500);
-
-</script>
-
-</body>
-</html>
+  
