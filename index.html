@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AS-Tick Script & Account Hub</title>
+<title>AS-Tick Hub</title>
 <link rel="icon" type="image/png" href="as-tick-logo.png">
 <style>
 * {
@@ -49,6 +49,10 @@ body::before {
   overflow: hidden;
   opacity: 1;
   transition: opacity 1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 #introVideo {
@@ -57,6 +61,21 @@ body::before {
   height: 100%;
   object-fit: cover;
   background: #000;
+  position: absolute;
+  inset: 0;
+}
+
+.skip-hint {
+  position: absolute;
+  bottom: 30px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  z-index: 100001;
+  pointer-events: none;
 }
 
 #introScreen.intro-exit {
@@ -65,7 +84,7 @@ body::before {
 }
 
 #introScreen.intro-hidden {
-  display: none;
+  display: none !important;
 }
 
 /* GENERAL STYLES */
@@ -286,11 +305,12 @@ footer {
 </head>
 <body>
 
-<!-- INTRO VIDEO -->
-<div id="introScreen">
+<!-- INTRO VIDEO (Click anywhere to skip or auto-proceed) -->
+<div id="introScreen" onclick="finishIntro()">
   <video id="introVideo" autoplay muted playsinline preload="auto">
     <source src="./intro.mp4" type="video/mp4">
   </video>
+  <div class="skip-hint">Tap anywhere to enter ↗</div>
 </div>
 
 <header>AS-TICK HUB</header>
@@ -317,7 +337,6 @@ footer {
 
   <!-- ==================== FLOW 1: APKS ==================== -->
   
-  <!-- STEP 1 (APKs) -->
   <section id="step1" class="panel hidden">
     <h2>APK Step 1</h2>
     <p>Wait for the countdown to finish.</p>
@@ -326,7 +345,6 @@ footer {
     <button id="next1" disabled onclick="goStep2()">Next</button>
   </section>
 
-  <!-- STEP 2 (APKs) -->
   <section id="step2" class="panel hidden">
     <h2>APK Step 2</h2>
     <p>Wait for the countdown to finish.</p>
@@ -335,7 +353,6 @@ footer {
     <button id="next2" disabled onclick="showCards()">Next</button>
   </section>
 
-  <!-- GAME CARDS -->
   <section id="cardsSection" class="panel hidden">
     <h2>Available APKs</h2>
     <p>Select your option below.</p>
@@ -359,7 +376,6 @@ footer {
     <button class="back-btn" onclick="backToHubFromApk()">⬅ Back to Menu</button>
   </section>
 
-  <!-- DOWNLOAD PANEL -->
   <section id="downloadSection" class="panel hidden">
     <h2 id="downloadTitle">Download</h2>
     <div id="ad728" class="ad-box"></div>
@@ -379,7 +395,6 @@ footer {
 
   <!-- ==================== FLOW 2: ACCOUNT CREATION ==================== -->
 
-  <!-- ACC STEP 1 (10 seconds wait) -->
   <section id="accStep1" class="panel hidden">
     <h2>Account Security Check (1/2)</h2>
     <p>Please wait for the timer to complete.</p>
@@ -390,7 +405,6 @@ footer {
     <button class="back-btn" onclick="backToHub()">⬅ Back to Menu</button>
   </section>
 
-  <!-- ACC STEP 2 (7 seconds wait) -->
   <section id="accStep2" class="panel hidden">
     <h2>Account Security Check (2/2)</h2>
     <p>Almost there, please wait again.</p>
@@ -399,7 +413,6 @@ footer {
     <button id="accNext2" disabled onclick="showAccForm()">Continue to Registration</button>
   </section>
 
-  <!-- ACCOUNT REGISTRATION PANEL -->
   <section id="accFormSection" class="panel hidden">
     <h2>Create Game Account</h2>
     <p style="margin-bottom: 20px; color: #aaa;">Enter your username and password for the game login.</p>
@@ -435,8 +448,7 @@ footer {
 <!-- Supabase Library -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ==================== SUPABASE CONFIG ==================== */
-// Jab aap supabase set karein toh yeh credentials dal dena:
+// ==================== SUPABASE CONFIG ====================
 const SUPABASE_URL = 'YOUR_SUPABASE_URL';
 const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -459,7 +471,6 @@ async function registerAccount() {
         return;
     }
 
-    // Database table 'users' mein insert karna
     const { data, error } = await supabase
         .from('users')
         .insert([{ username: user, password: pass }]);
@@ -475,29 +486,37 @@ async function registerAccount() {
     }
 }
 
-/* ==================== INTRO LOGIC ==================== */
+// ==================== INTRO LOGIC (FOOLPROOF) ====================
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
+let introDone = false;
 
 function finishIntro() {
+  if (introDone) return;
+  introDone = true;
+
   introScreen.classList.add("intro-exit");
   setTimeout(() => {
     introScreen.classList.add("intro-hidden");
     introVideo.pause();
-    // Show main hub menu after intro finishes
     document.getElementById("mainHubMenu").classList.remove("hidden");
   }, 1000);
 }
 
 introVideo.addEventListener("ended", finishIntro);
+
 window.addEventListener("load", () => {
   introVideo.muted = true;
-  introVideo.play().catch(() => { finishIntro(); });
+  introVideo.play().catch(() => {
+    // If autoplay fails, intro will still dismiss on tap
+  });
 });
-introVideo.addEventListener("error", () => { finishIntro(); });
 
+introVideo.addEventListener("error", () => {
+  finishIntro();
+});
 
-/* ==================== NAVIGATION / HUB FUNCTIONS ==================== */
+// ==================== NAVIGATION / HUB FUNCTIONS ====================
 function backToHub() {
   document.getElementById("accStep1").classList.add("hidden");
   document.getElementById("accStep2").classList.add("hidden");
@@ -510,7 +529,7 @@ function backToHubFromApk() {
   document.getElementById("mainHubMenu").classList.remove("hidden");
 }
 
-/* ==================== APK FLOW LOGIC ==================== */
+// ==================== APK FLOW LOGIC ====================
 function startApkFlow() {
   document.getElementById("mainHubMenu").classList.add("hidden");
   document.getElementById("step1").classList.remove("hidden");
@@ -558,15 +577,14 @@ function showCards() {
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-
-/* ==================== ACCOUNT CREATION FLOW LOGIC ==================== */
+// ==================== ACCOUNT CREATION FLOW LOGIC ====================
 function startAccFlow() {
   document.getElementById("mainHubMenu").classList.add("hidden");
   document.getElementById("accStep1").classList.remove("hidden");
 
   loadAd("accAd1", "4a0f9f4f79426fe7c7f7f51d5757b276", 468, 60);
 
-  let accTime1 = 10; // 10 seconds wait as requested
+  let accTime1 = 10;
   const accTimer1 = document.getElementById("accTimer1");
   const accNext1 = document.getElementById("accNext1");
   accNext1.disabled = true;
@@ -587,7 +605,7 @@ function goAccStep2() {
 
   loadAd("accAd2", "044ccee5730ced0f1ab0026b0b216c54", 300, 250);
 
-  let accTime2 = 7; // 7 seconds wait as requested
+  let accTime2 = 7;
   const accTimer2 = document.getElementById("accTimer2");
   const accNext2 = document.getElementById("accNext2");
   accNext2.disabled = true;
@@ -607,8 +625,7 @@ function showAccForm() {
   document.getElementById("accFormSection").classList.remove("hidden");
 }
 
-
-/* ==================== DOWNLOAD DATA & FUNCTIONS ==================== */
+// ==================== DOWNLOAD DATA & FUNCTIONS ====================
 const downloadData = {
   ff2022: {
     title: "2022 FF",
