@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AS-Tick Script Hub</title>
-<link rel="icon" type="image/png" href="as-tick-logo.png">
-
-<meta property="og:title" content="AS-Tick Script Hub">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AS-Tick Script Hub</title>
+<link rel="icon" type="image/png" href="as-tick-logo.png"><meta property="og:title" content="AS-Tick Script Hub">
 <meta property="og:description" content="AS-Tick Official Script Hub">
 <meta property="og:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
 <meta property="og:url" content="https://as-tick.github.io/AS-Tick/">
-<meta property="og:type" content="website">
-
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AS-Tick Script Hub">
 <meta name="twitter:description" content="AS-Tick Official Script Hub">
-<meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
-
-<style>
+<meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2"><style>
 * {
   margin: 0;
   padding: 0;
@@ -243,13 +234,7 @@ footer {
   padding: 25px 10px;
   font-size: 13px;
 }
-</style>
-</head>
-
-<body>
-
-<!-- INTRO VIDEO -->
-<div id="introScreen">
+</style></head><body><!-- INTRO VIDEO --><div id="introScreen">
   <video
     id="introVideo"
     autoplay
@@ -258,131 +243,117 @@ footer {
     preload="auto">
     <source src="./intro.mp4" type="video/mp4">
   </video>
-</div>
-
-<header>AS_TICK SCRIPT HUB</header>
-
-<div class="container">
-
-  <!-- STEP 1 -->
-  <section id="step1" class="panel">
+</div><header>AS_TICK SCRIPT HUB</header><div class="container">  <!-- STEP 1 -->  <section id="step1" class="panel">
     <h2>Step 1</h2>
-    <p>Wait for the countdown to finish.</p>
+    <p>Wait for the countdown to finish.</p><div id="ad468" class="ad-box"></div>
 
-    <div id="ad468" class="ad-box"></div>
+<h3 id="timer1">Please wait 7 seconds...</h3>
+<button id="next1" disabled onclick="goStep2()">Next</button>
 
-    <h3 id="timer1">Please wait 7 seconds...</h3>
-    <button id="next1" disabled onclick="goStep2()">Next</button>
-  </section>
-
-  <!-- STEP 2 -->
-  <section id="step2" class="panel hidden">
+  </section>  <!-- STEP 2 -->  <section id="step2" class="panel hidden">
     <h2>Step 2</h2>
-    <p>Wait for the countdown to finish.</p>
+    <p>Wait for the countdown to finish.</p><div id="ad300" class="ad-box"></div>
 
-    <div id="ad300" class="ad-box"></div>
+<h3 id="timer2">Please wait 5 seconds...</h3>
+<button id="next2" disabled onclick="showCards()">Next</button>
 
-    <h3 id="timer2">Please wait 5 seconds...</h3>
-    <button id="next2" disabled onclick="showCards()">Next</button>
-  </section>
-
-  <!-- GAME CARDS -->
-  <section id="cardsSection" class="panel hidden">
+  </section>  <!-- GAME CARDS -->  <section id="cardsSection" class="panel hidden">
     <h2>Available Links</h2>
-    <p>Select your option below.</p>
+    <p>Select your option below.</p><div class="cards">
 
-    <div class="cards">
-
-      <div class="link-card">
-        <div class="card-image">
-          <img src="cr7-logo.png" alt="2022 FF logo">
-        </div>
-        <h3>2022 FF</h3>
-        <button onclick="openDownload('ff2022')">Open ↗</button>
-      </div>
-
-      <div class="link-card">
-        <div class="card-image">
-          <img src="2019-logo.png" alt="2019 FF Old logo">
-        </div>
-        <h3>2019 FF Old</h3>
-        <button onclick="openDownload('old2019')">Open ↗</button>
-      </div>
-
+  <div class="link-card">
+    <div class="card-image">
+      <img src="cr7-logo.png" alt="2022 FF logo">
     </div>
-  </section>
+    <h3>2022 FF</h3>
+    <button onclick="openDownload('ff2022')">Open ↗</button>
+  </div>
 
-  <!-- DOWNLOAD PANEL -->
-  <section id="downloadSection" class="panel hidden">
-    <h2 id="downloadTitle">Download</h2>
-
-    <div id="ad728" class="ad-box"></div>
-
-    <div id="youtubeTutorial" class="youtube-section hidden">
-      <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
-
-      <div class="video-wrapper">
-        <iframe
-          id="tutorialFrame"
-          src="about:blank"
-          title="YouTube Tutorial"
-          loading="eager"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <a
-        id="youtubeButton"
-        class="youtube-btn"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer">
-        Watch on YouTube ↗
-      </a>
+  <div class="link-card">
+    <div class="card-image">
+      <img src="2019-logo.png" alt="2019 FF Old logo">
     </div>
-
-    <div id="downloadOptions"></div>
-
-    <button class="back-btn" onclick="backToCards()">⬅ Back</button>
-  </section>
+    <h3>2019 FF Old</h3>
+    <button onclick="openDownload('old2019')">Open ↗</button>
+  </div>
 
 </div>
 
-<footer>
+  </section>  <!-- DOWNLOAD PANEL -->  <section id="downloadSection" class="panel hidden">
+    <h2 id="downloadTitle">Download</h2><div id="ad728" class="ad-box"></div>
+
+<div id="youtubeTutorial" class="youtube-section hidden">
+  <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
+
+  <div class="video-wrapper">
+    <iframe
+      id="tutorialFrame"
+      src="about:blank"
+      title="YouTube Tutorial"
+      loading="eager"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <a
+    id="youtubeButton"
+    class="youtube-btn"
+    href="#"
+    target="_blank"
+    rel="noopener noreferrer">
+    Watch on YouTube ↗
+  </a>
+</div>
+
+<div id="downloadOptions"></div>
+
+<button class="back-btn" onclick="backToCards()">⬅ Back</button>
+
+  </section></div><footer>
   AS-Tick Script Hub © 2026
-</footer>
+</footer><script>
 
-<script>
-
-/* INTRO VIDEO */
+/* INTRO VIDEO + TIMER CONTROL */
 
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
 
+let introFinished = false;
+let countdown1Started = false;
+
 function finishIntro() {
-  if (!introScreen || introScreen.classList.contains("intro-exit")) {
-    return;
-  }
+  if (introFinished) return;
+
+  introFinished = true;
 
   introScreen.classList.add("intro-exit");
 
   setTimeout(() => {
     introScreen.classList.add("intro-hidden");
     introVideo.pause();
+
+    // Intro completely gone -> start Step 1 timer
+    startStep1Countdown();
+
   }, 1000);
 }
 
-/* Video end -> website Step 1 */
+/* VIDEO ENDS -> INTRO FADES -> STEP 1 TIMER STARTS */
 introVideo.addEventListener("ended", finishIntro);
 
-/* Autoplay muted video */
+/* MUTED AUTOPLAY */
 window.addEventListener("load", () => {
   introVideo.muted = true;
 
   introVideo.play().catch(() => {
-    console.warn("Autoplay blocked by browser.");
+    console.warn("Intro autoplay blocked or video failed to load.");
   });
+});
+
+/* If video fails to load, avoid locking visitor on black screen */
+introVideo.addEventListener("error", () => {
+  finishIntro();
 });
 
 /* DOWNLOAD URLS */
@@ -461,22 +432,33 @@ loadAd(
   60
 );
 
-/* STEP 1 COUNTDOWN */
-let time1 = 7;
+/* STEP 1 COUNTDOWN - STARTS AFTER INTRO */
+function startStep1Countdown() {
+  if (countdown1Started) return;
 
-const countdown1 = setInterval(() => {
-  time1--;
+  countdown1Started = true;
 
-  document.getElementById("timer1").textContent =
-    time1 > 0
-      ? "Please wait " + time1 + " seconds..."
-      : "You can continue now!";
+  let time1 = 7;
 
-  if (time1 <= 0) {
-    clearInterval(countdown1);
-    document.getElementById("next1").disabled = false;
-  }
-}, 1000);
+  const timer1 = document.getElementById("timer1");
+  const next1 = document.getElementById("next1");
+
+  timer1.textContent = "Please wait " + time1 + " seconds...";
+
+  const countdown1 = setInterval(() => {
+    time1--;
+
+    timer1.textContent =
+      time1 > 0
+        ? "Please wait " + time1 + " seconds..."
+        : "You can continue now!";
+
+    if (time1 <= 0) {
+      clearInterval(countdown1);
+      next1.disabled = false;
+    }
+  }, 1000);
+}
 
 /* STEP 2 */
 function goStep2() {
@@ -492,17 +474,23 @@ function goStep2() {
 
   let time2 = 5;
 
+  const timer2 = document.getElementById("timer2");
+  const next2 = document.getElementById("next2");
+
+  next2.disabled = true;
+  timer2.textContent = "Please wait " + time2 + " seconds...";
+
   const countdown2 = setInterval(() => {
     time2--;
 
-    document.getElementById("timer2").textContent =
+    timer2.textContent =
       time2 > 0
         ? "Please wait " + time2 + " seconds..."
         : "You can continue now!";
 
     if (time2 <= 0) {
       clearInterval(countdown2);
-      document.getElementById("next2").disabled = false;
+      next2.disabled = false;
     }
   }, 1000);
 }
@@ -580,7 +568,5 @@ function backToCards() {
   document.getElementById("tutorialFrame").src = "about:blank";
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
