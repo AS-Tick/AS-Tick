@@ -5,16 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AS-Tick Script Hub</title>
-
 <link rel="icon" type="image/png" href="as-tick-logo.png">
 
 <meta property="og:title" content="AS-Tick Script Hub">
 <meta property="og:description" content="AS-Tick Official Script Hub">
 <meta property="og:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
-<meta property="og:image:secure_url" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://as-tick.github.io/AS-Tick/">
 <meta property="og:type" content="website">
 
@@ -55,9 +50,7 @@ body::before {
   to { transform: translate(5%, 5%) scale(1.2); }
 }
 
-/* =========================
-   CINEMATIC VIDEO INTRO
-========================= */
+/* CINEMATIC INTRO */
 
 #introScreen {
   position: fixed;
@@ -69,7 +62,7 @@ body::before {
   background: #000;
   overflow: hidden;
   opacity: 1;
-  transition: opacity 1s ease, transform 1s ease;
+  transition: opacity 1s ease;
 }
 
 #introVideo {
@@ -80,34 +73,8 @@ body::before {
   background: #000;
 }
 
-#skipIntro {
-  position: absolute;
-  bottom: max(30px, env(safe-area-inset-bottom));
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-
-  background: linear-gradient(135deg, #ff0000, #700000);
-  color: white;
-  border: 1px solid #ff5555;
-  border-radius: 8px;
-  padding: 13px 28px;
-
-  font-size: 15px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  cursor: pointer;
-
-  box-shadow: 0 0 20px rgba(255,0,0,0.7);
-}
-
-#skipIntro:hover {
-  box-shadow: 0 0 35px red;
-}
-
 #introScreen.intro-exit {
   opacity: 0;
-  transform: scale(1.04);
   pointer-events: none;
 }
 
@@ -115,9 +82,7 @@ body::before {
   display: none;
 }
 
-/* =========================
-   EXISTING WEBSITE STYLES
-========================= */
+/* WEBSITE STYLES */
 
 header {
   text-align: center;
@@ -283,28 +248,16 @@ footer {
 
 <body>
 
-<!-- =========================
-     CINEMATIC VIDEO INTRO
-========================= -->
-
+<!-- INTRO VIDEO -->
 <div id="introScreen">
-
   <video
     id="introVideo"
     autoplay
     muted
     playsinline
     preload="auto">
-
-    <source src="intro.mp4" type="video/mp4">
-
-    Your browser does not support video.
+    <source src="./intro.mp4" type="video/mp4">
   </video>
-
-  <button id="skipIntro" onclick="startWebsite()">
-    ENTER WEBSITE ➜
-  </button>
-
 </div>
 
 <header>AS_TICK SCRIPT HUB</header>
@@ -340,22 +293,18 @@ footer {
 
     <div class="cards">
 
-      <!-- 2022 FF -->
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
         </div>
-
         <h3>2022 FF</h3>
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
 
-      <!-- 2019 FF Old -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
         </div>
-
         <h3>2019 FF Old</h3>
         <button onclick="openDownload('old2019')">Open ↗</button>
       </div>
@@ -370,7 +319,6 @@ footer {
     <div id="ad728" class="ad-box"></div>
 
     <div id="youtubeTutorial" class="youtube-section hidden">
-
       <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
 
       <div class="video-wrapper">
@@ -392,7 +340,6 @@ footer {
         rel="noopener noreferrer">
         Watch on YouTube ↗
       </a>
-
     </div>
 
     <div id="downloadOptions"></div>
@@ -408,17 +355,13 @@ footer {
 
 <script>
 
-/* =========================
-   CINEMATIC INTRO JAVASCRIPT
-========================= */
+/* INTRO VIDEO */
 
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
 
-function startWebsite() {
-  if (!introScreen) return;
-
-  if (introScreen.classList.contains("intro-exit")) {
+function finishIntro() {
+  if (!introScreen || introScreen.classList.contains("intro-exit")) {
     return;
   }
 
@@ -426,31 +369,23 @@ function startWebsite() {
 
   setTimeout(() => {
     introScreen.classList.add("intro-hidden");
-
-    if (introVideo) {
-      introVideo.pause();
-    }
+    introVideo.pause();
   }, 1000);
 }
 
-/* Automatically open website when video ends */
-introVideo.addEventListener("ended", startWebsite);
+/* Video end -> website Step 1 */
+introVideo.addEventListener("ended", finishIntro);
 
-/* If video fails to load, allow user to continue */
-introVideo.addEventListener("error", () => {
-  document.getElementById("skipIntro").style.display = "block";
-});
-
-/* Attempt autoplay on mobile */
+/* Autoplay muted video */
 window.addEventListener("load", () => {
+  introVideo.muted = true;
+
   introVideo.play().catch(() => {
-    /* ENTER WEBSITE button remains available */
+    console.warn("Autoplay blocked by browser.");
   });
 });
 
-/* =========================
-   DOWNLOAD URLS
-========================= */
+/* DOWNLOAD URLS */
 
 const downloadData = {
   ff2022: {
@@ -472,7 +407,7 @@ const downloadData = {
   },
 
   old2019: {
-    title: "2019 FF Old",
+    title: "2019 FF",
     options: [
       {
         name: "MediaFire Download",
@@ -482,13 +417,10 @@ const downloadData = {
   }
 };
 
-/* =========================
-   LOAD ADSTERRA AD
-========================= */
+/* LOAD ADSTERRA */
 
 function loadAd(containerId, key, width, height) {
   const container = document.getElementById(containerId);
-
   if (!container) return;
 
   container.innerHTML = "";
@@ -521,7 +453,7 @@ function loadAd(containerId, key, width, height) {
   adFrame.appendChild(adScript);
 }
 
-/* First ad */
+/* FIRST AD */
 loadAd(
   "ad468",
   "4a0f9f4f79426fe7c7f7f51d5757b276",
@@ -529,10 +461,7 @@ loadAd(
   60
 );
 
-/* =========================
-   STEP 1 COUNTDOWN
-========================= */
-
+/* STEP 1 COUNTDOWN */
 let time1 = 7;
 
 const countdown1 = setInterval(() => {
@@ -549,10 +478,7 @@ const countdown1 = setInterval(() => {
   }
 }, 1000);
 
-/* =========================
-   STEP 2
-========================= */
-
+/* STEP 2 */
 function goStep2() {
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
@@ -581,27 +507,19 @@ function goStep2() {
   }, 1000);
 }
 
-/* =========================
-   SHOW CARDS
-========================= */
-
+/* SHOW CARDS */
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-/* =========================
-   OPEN DOWNLOAD SECTION
-========================= */
-
+/* OPEN DOWNLOAD */
 function openDownload(type) {
   const data = downloadData[type];
-
   if (!data) return;
 
   document.getElementById("cardsSection").classList.add("hidden");
   document.getElementById("downloadSection").classList.remove("hidden");
-
   document.getElementById("downloadTitle").textContent = data.title;
 
   const optionsContainer = document.getElementById("downloadOptions");
@@ -612,33 +530,22 @@ function openDownload(type) {
   const tutorialTitle = document.getElementById("youtubeTitle");
   const youtubeButton = document.getElementById("youtubeButton");
 
-  /* 2022 FF tutorial */
   if (type === "ff2022") {
     tutorial.classList.remove("hidden");
 
     tutorialTitle.textContent = "📺 2022 FF YouTube Tutorial";
-
-    tutorialFrame.src =
-      "https://www.youtube.com/embed/paWvVTU2JwI";
-
-    youtubeButton.href =
-      "https://youtu.be/paWvVTU2JwI";
+    tutorialFrame.src = "https://www.youtube.com/embed/paWvVTU2JwI";
+    youtubeButton.href = "https://youtu.be/paWvVTU2JwI";
   }
 
-  /* 2019 FF tutorial */
   else if (type === "old2019") {
     tutorial.classList.remove("hidden");
 
     tutorialTitle.textContent = "📺 2019 FF Old YouTube Tutorial";
-
-    tutorialFrame.src =
-      "https://www.youtube.com/embed/1wmRAtVKckA";
-
-    youtubeButton.href =
-      "https://youtu.be/1wmRAtVKckA";
+    tutorialFrame.src = "https://www.youtube.com/embed/1wmRAtVKckA";
+    youtubeButton.href = "https://youtu.be/1wmRAtVKckA";
   }
 
-  /* Create download options */
   data.options.forEach(option => {
     const item = document.createElement("div");
     item.className = "download-option";
@@ -655,7 +562,6 @@ function openDownload(type) {
 
     item.appendChild(title);
     item.appendChild(link);
-
     optionsContainer.appendChild(item);
   });
 
@@ -667,19 +573,14 @@ function openDownload(type) {
   );
 }
 
-/* =========================
-   BACK BUTTON
-========================= */
-
+/* BACK BUTTON */
 function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
-
-  /* Stop YouTube video playback */
   document.getElementById("tutorialFrame").src = "about:blank";
 }
 
 </script>
 
 </body>
-        </html>
+</html>
