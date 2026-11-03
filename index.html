@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,6 @@
 
 <link rel="icon" type="image/png" href="as-tick-logo.png">
 
-<!-- Open Graph / WhatsApp / Messenger preview -->
 <meta property="og:title" content="AS-Tick Script Hub">
 <meta property="og:description" content="AS-Tick Official Script Hub">
 <meta property="og:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
@@ -58,7 +56,7 @@ body::before {
 }
 
 /* =========================
-   AS-TICK CINEMATIC INTRO
+   CINEMATIC VIDEO INTRO
 ========================= */
 
 #introScreen {
@@ -68,296 +66,53 @@ body::before {
   height: 100vh;
   height: 100dvh;
   z-index: 100000;
-  background:
-    radial-gradient(circle at center, #250000 0%, #080000 45%, #000 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #000;
   overflow: hidden;
-  isolation: isolate;
+  opacity: 1;
+  transition: opacity 1s ease, transform 1s ease;
 }
 
-/* Red smoke layers */
-#introScreen::before,
-#introScreen::after {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  pointer-events: none;
-}
-
-#introScreen::before {
-  background:
-    radial-gradient(ellipse at 25% 45%,
-      rgba(255,0,0,0.42), transparent 30%),
-    radial-gradient(ellipse at 75% 55%,
-      rgba(130,0,0,0.5), transparent 35%),
-    radial-gradient(ellipse at 50% 50%,
-      rgba(50,0,0,0.8), transparent 60%);
-  filter: blur(35px);
-  animation: introSmoke 7s infinite alternate ease-in-out;
-}
-
-#introScreen::after {
-  background:
-    radial-gradient(ellipse at 70% 25%,
-      rgba(255,0,0,0.25), transparent 25%),
-    radial-gradient(ellipse at 30% 80%,
-      rgba(160,0,0,0.3), transparent 30%);
-  filter: blur(50px);
-  animation: introSmoke 10s infinite alternate-reverse ease-in-out;
-}
-
-/* Animated energy ring */
-.intro-ring {
-  position: absolute;
-  width: min(75vw, 420px);
-  aspect-ratio: 1;
-  border: 2px solid rgba(255, 0, 0, 0.65);
-  border-radius: 50%;
-  box-shadow:
-    0 0 15px red,
-    0 0 45px rgba(255, 0, 0, 0.7),
-    inset 0 0 25px rgba(255, 0, 0, 0.5);
-  animation: ringAnimation 4s ease-in-out infinite;
-}
-
-.intro-ring.ring-two {
-  width: min(95vw, 520px);
-  border-style: dashed;
-  opacity: 0.45;
-  animation: ringAnimation 8s linear infinite reverse;
-}
-
-.intro-ring.ring-three {
-  width: min(55vw, 300px);
-  border-width: 1px;
-  opacity: 0.6;
-  animation: ringAnimation 5s ease-in-out infinite;
-}
-
-@keyframes ringAnimation {
-  0% {
-    transform: scale(0.65) rotate(0deg);
-    opacity: 0.15;
-  }
-  50% {
-    transform: scale(1.08) rotate(180deg);
-    opacity: 0.85;
-  }
-  100% {
-    transform: scale(0.65) rotate(360deg);
-    opacity: 0.15;
-  }
-}
-
-@keyframes introSmoke {
-  0% {
-    transform: translate(-8%, -5%) scale(1);
-  }
-  50% {
-    transform: translate(5%, 8%) scale(1.15);
-  }
-  100% {
-    transform: translate(10%, -8%) scale(1.25);
-  }
-}
-
-/* Light scan effect */
-.intro-scan {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.15;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(255, 0, 0, 0.25) 4px
-  );
-  animation: scanMove 5s linear infinite;
-}
-
-@keyframes scanMove {
-  from { transform: translateY(-20px); }
-  to { transform: translateY(20px); }
-}
-
-.intro-content {
-  position: relative;
-  z-index: 5;
-  text-align: center;
-  padding: 20px;
+#introVideo {
+  display: block;
   width: 100%;
-  animation: contentEntrance 1.2s cubic-bezier(.16,1,.3,1);
+  height: 100%;
+  object-fit: cover;
+  background: #000;
 }
 
-@keyframes contentEntrance {
-  from {
-    transform: scale(1.5);
-    opacity: 0;
-    filter: blur(15px);
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-    filter: blur(0);
-  }
-}
+#skipIntro {
+  position: absolute;
+  bottom: max(30px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
 
-/* Logo animation */
-#introLogo {
-  width: 190px;
-  max-width: 55vw;
-  height: auto;
-  object-fit: contain;
-  opacity: 0;
-  transform: scale(0.3);
-  animation:
-    logoReveal 1.5s ease-out forwards,
-    logoGlow 2.5s ease-in-out 1.5s infinite alternate;
-}
-
-@keyframes logoReveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.3) rotate(-12deg);
-    filter: blur(15px);
-  }
-  65% {
-    opacity: 1;
-    transform: scale(1.2) rotate(3deg);
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes logoGlow {
-  from {
-    filter: drop-shadow(0 0 8px #ff0000);
-  }
-  to {
-    filter:
-      drop-shadow(0 0 20px #ff0000)
-      drop-shadow(0 0 40px #a00000);
-  }
-}
-
-/* AS-TICK title */
-.intro-title {
-  margin-top: 20px;
-  font-size: clamp(35px, 10vw, 72px);
-  font-weight: 900;
-  letter-spacing: 8px;
-  color: white;
-  text-shadow:
-    0 0 10px red,
-    0 0 25px red,
-    0 0 45px darkred;
-  animation:
-    titleReveal 1.5s ease-out,
-    titleGlitch 3s infinite 1.5s;
-}
-
-@keyframes titleReveal {
-  from {
-    opacity: 0;
-    transform: translateY(35px);
-    letter-spacing: 20px;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    letter-spacing: 8px;
-  }
-}
-
-@keyframes titleGlitch {
-  0%, 90%, 100% {
-    transform: translate(0);
-  }
-  92% {
-    transform: translate(-3px, 2px);
-  }
-  94% {
-    transform: translate(3px, -2px);
-  }
-  96% {
-    transform: translate(-2px, 0);
-  }
-}
-
-/* Instagram ID */
-.intro-instagram {
-  margin-top: 15px;
-  font-size: clamp(14px, 4vw, 18px);
-  font-weight: bold;
-  letter-spacing: 2px;
-  color: #ff4545;
-  text-shadow:
-    0 0 8px red,
-    0 0 18px darkred;
-  animation: instaReveal 1.5s ease-out 0.5s both;
-}
-
-@keyframes instaReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Enter website button */
-#introNext {
-  display: none;
-  margin-top: 35px;
-  padding: 15px 40px;
   background: linear-gradient(135deg, #ff0000, #700000);
   color: white;
-  border: 1px solid #ff4444;
+  border: 1px solid #ff5555;
   border-radius: 8px;
-  font-size: 17px;
+  padding: 13px 28px;
+
+  font-size: 15px;
   font-weight: bold;
-  letter-spacing: 3px;
-  box-shadow:
-    0 0 15px rgba(255,0,0,0.7),
-    inset 0 0 10px rgba(255,255,255,0.1);
+  letter-spacing: 2px;
   cursor: pointer;
-  animation: nextPulse 1s infinite alternate;
+
+  box-shadow: 0 0 20px rgba(255,0,0,0.7);
 }
 
-#introNext:hover {
-  transform: scale(1.08);
+#skipIntro:hover {
   box-shadow: 0 0 35px red;
 }
 
-@keyframes nextPulse {
-  from {
-    box-shadow: 0 0 8px red;
-  }
-  to {
-    box-shadow: 0 0 28px red;
-  }
-}
-
-/* Smooth intro exit */
 #introScreen.intro-exit {
   opacity: 0;
-  transform: scale(1.15);
-  filter: blur(8px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease,
-    filter 0.8s ease;
+  transform: scale(1.04);
   pointer-events: none;
+}
+
+#introScreen.intro-hidden {
+  display: none;
 }
 
 /* =========================
@@ -481,7 +236,6 @@ button:disabled {
   color: #ff3333;
 }
 
-/* YouTube tutorial styling */
 .youtube-section {
   max-width: 650px;
   width: 100%;
@@ -524,86 +278,33 @@ footer {
   padding: 25px 10px;
   font-size: 13px;
 }
-
-#warning {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,0.96);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.warning-box {
-  max-width: 450px;
-  background: #160000;
-  border: 2px solid red;
-  border-radius: 12px;
-  padding: 25px;
-  text-align: center;
-}
-
-.warning-box h2 {
-  color: #ff3333;
-  margin-bottom: 15px;
-}
-
-/* Intro mobile adjustments */
-@media (max-width: 480px) {
-  .intro-title {
-    letter-spacing: 5px;
-  }
-
-  #introLogo {
-    width: 160px;
-  }
-
-  .intro-ring {
-    width: 85vw;
-  }
-
-  .intro-ring.ring-two {
-    width: 110vw;
-  }
-}
 </style>
 </head>
 
 <body>
 
 <!-- =========================
-     CINEMATIC INTRO SCREEN
+     CINEMATIC VIDEO INTRO
 ========================= -->
 
 <div id="introScreen">
 
-  <div class="intro-ring"></div>
-  <div class="intro-ring ring-two"></div>
-  <div class="intro-ring ring-three"></div>
-  <div class="intro-scan"></div>
+  <video
+    id="introVideo"
+    autoplay
+    muted
+    playsinline
+    preload="auto">
 
-  <div class="intro-content">
+    <source src="intro.mp4" type="video/mp4">
 
-    <img
-      src="as-tick-logo.png"
-      id="introLogo"
-      alt="AS-Tick Logo">
+    Your browser does not support video.
+  </video>
 
-    <h1 class="intro-title">AS-TICK</h1>
+  <button id="skipIntro" onclick="startWebsite()">
+    ENTER WEBSITE ➜
+  </button>
 
-    <div class="intro-instagram">
-      INSTAGRAM: @as_tick.offical
-    </div>
-
-    <button
-      id="introNext"
-      onclick="startWebsite()">
-      ENTER WEBSITE ➜
-    </button>
-
-  </div>
 </div>
 
 <header>AS_TICK SCRIPT HUB</header>
@@ -644,6 +345,7 @@ footer {
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
         </div>
+
         <h3>2022 FF</h3>
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
@@ -653,6 +355,7 @@ footer {
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
         </div>
+
         <h3>2019 FF Old</h3>
         <button onclick="openDownload('old2019')">Open ↗</button>
       </div>
@@ -703,46 +406,52 @@ footer {
   AS-Tick Script Hub © 2026
 </footer>
 
-<!-- AdBlock warning -->
-<div id="warning">
-  <div class="warning-box">
-    <h2>AdBlock Detected</h2>
-    <p>Please disable your ad blocker if you want advertisements to load.</p>
-    <p style="margin-top:10px;">
-      If ads do not load, try turning off VPN or refreshing the page.
-    </p>
-    <button onclick="location.reload()">Refresh</button>
-  </div>
-</div>
-
 <script>
 
 /* =========================
    CINEMATIC INTRO JAVASCRIPT
 ========================= */
 
+const introScreen = document.getElementById("introScreen");
+const introVideo = document.getElementById("introVideo");
+
 function startWebsite() {
-  const intro = document.getElementById("introScreen");
+  if (!introScreen) return;
 
-  if (!intro) return;
+  if (introScreen.classList.contains("intro-exit")) {
+    return;
+  }
 
-  intro.classList.add("intro-exit");
+  introScreen.classList.add("intro-exit");
 
   setTimeout(() => {
-    intro.style.display = "none";
-  }, 800);
+    introScreen.classList.add("intro-hidden");
+
+    if (introVideo) {
+      introVideo.pause();
+    }
+  }, 1000);
 }
 
-/* Show ENTER button after 4.5 seconds */
-setTimeout(() => {
-  const introNext = document.getElementById("introNext");
+/* Automatically open website when video ends */
+introVideo.addEventListener("ended", startWebsite);
 
-  if (introNext) {
-    introNext.style.display = "inline-block";
-  }
-}, 4500);
+/* If video fails to load, allow user to continue */
+introVideo.addEventListener("error", () => {
+  document.getElementById("skipIntro").style.display = "block";
+});
 
-/* Download URLs */
+/* Attempt autoplay on mobile */
+window.addEventListener("load", () => {
+  introVideo.play().catch(() => {
+    /* ENTER WEBSITE button remains available */
+  });
+});
+
+/* =========================
+   DOWNLOAD URLS
+========================= */
+
 const downloadData = {
   ff2022: {
     title: "2022 FF",
@@ -773,7 +482,10 @@ const downloadData = {
   }
 };
 
-/* Load Adsterra ad */
+/* =========================
+   LOAD ADSTERRA AD
+========================= */
+
 function loadAd(containerId, key, width, height) {
   const container = document.getElementById(containerId);
 
@@ -817,7 +529,10 @@ loadAd(
   60
 );
 
-/* Step 1 countdown */
+/* =========================
+   STEP 1 COUNTDOWN
+========================= */
+
 let time1 = 7;
 
 const countdown1 = setInterval(() => {
@@ -834,7 +549,10 @@ const countdown1 = setInterval(() => {
   }
 }, 1000);
 
-/* Step 2 */
+/* =========================
+   STEP 2
+========================= */
+
 function goStep2() {
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
@@ -863,13 +581,19 @@ function goStep2() {
   }, 1000);
 }
 
-/* Show cards */
+/* =========================
+   SHOW CARDS
+========================= */
+
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
-/* Open selected download section + YouTube tutorial */
+/* =========================
+   OPEN DOWNLOAD SECTION
+========================= */
+
 function openDownload(type) {
   const data = downloadData[type];
 
@@ -943,20 +667,19 @@ function openDownload(type) {
   );
 }
 
-/* Back button */
+/* =========================
+   BACK BUTTON
+========================= */
+
 function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 
-  /* Stop video playback */
+  /* Stop YouTube video playback */
   document.getElementById("tutorialFrame").src = "about:blank";
 }
 
-/* Basic AdBlock detection */
-setTimeout(() => {
-  const bait = document.createElement("div");
-  bait.className = "adsbox ad-banner ad-unit";
-  bait.style.height = "10px";
-  bait.style.position = "absolute";
-  bait.style.left = "-9999px";
-  
+</script>
+
+</body>
+        </html>
