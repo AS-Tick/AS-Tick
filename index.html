@@ -292,35 +292,28 @@ footer {
 
     <div class="cards">
 
-      <!-- 2022 FF -->
-
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
         </div>
-
         <h3>2022 FF</h3>
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
-
-      <!-- 2019 FF -->
 
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
         </div>
-
         <h3>2019 FF Old</h3>
         <button onclick="openDownload('old2019')">Open ↗</button>
       </div>
 
-      <!-- NEW 2017 FF -->
+      <!-- 2017 FF OLD -->
 
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2017 FF Old logo">
         </div>
-
         <h3>2017 FF Old</h3>
         <button onclick="openDownload('old2017')">Open ↗</button>
       </div>
@@ -376,7 +369,7 @@ footer {
 
 <script>
 
-/* INTRO VIDEO + TIMER CONTROL */
+/* INTRO VIDEO */
 
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
@@ -441,14 +434,14 @@ const downloadData = {
     ]
   },
 
-  /* NEW 2017 FF DOWNLOAD */
+  /* UPDATED 2017 FF LINK */
 
   old2017: {
     title: "2017 FF Old",
     options: [
       {
         name: "MediaFire Download",
-        url: "https://www.mediafire.com/file/atkbwjsz5w72jla/freefire2017.apk/file"
+        url: "https://www.mediafire.com/file/jrtzx128q2w2kcp/com.dts.freefireth_v1.70.0.xapk.zip/file"
       }
     ]
   }
@@ -500,7 +493,7 @@ loadAd(
   60
 );
 
-/* STEP 1 COUNTDOWN */
+/* STEP 1 TIMER */
 
 function startStep1Countdown() {
   if (countdown1Started) return;
@@ -529,7 +522,7 @@ function startStep1Countdown() {
   }, 1000);
 }
 
-/* STEP 2 */
+/* STEP 2 TIMER */
 
 function goStep2() {
   document.getElementById("step1").classList.add("hidden");
@@ -591,8 +584,6 @@ function openDownload(type) {
   const tutorialTitle = document.getElementById("youtubeTitle");
   const youtubeButton = document.getElementById("youtubeButton");
 
-  /* 2022 TUTORIAL */
-
   if (type === "ff2022") {
     tutorial.classList.remove("hidden");
 
@@ -601,8 +592,6 @@ function openDownload(type) {
     youtubeButton.href = "https://youtu.be/paWvVTU2JwI";
   }
 
-  /* 2019 TUTORIAL */
-
   else if (type === "old2019") {
     tutorial.classList.remove("hidden");
 
@@ -610,8 +599,6 @@ function openDownload(type) {
     tutorialFrame.src = "https://www.youtube.com/embed/1wmRAtVKckA";
     youtubeButton.href = "https://youtu.be/1wmRAtVKckA";
   }
-
-  /* 2017 - NO TUTORIAL */
 
   else {
     tutorial.classList.add("hidden");
@@ -658,4 +645,4 @@ function backToCards() {
 </script>
 
 </body>
-</html>
+  </html>
