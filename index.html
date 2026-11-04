@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AS-Tick Script Hub</title>
-
 <link rel="icon" type="image/png" href="as-tick-logo.png">
 
 <meta property="og:title" content="AS-Tick Script Hub">
@@ -19,11 +19,7 @@
 <meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: Arial, sans-serif;
@@ -49,8 +45,6 @@ body::before {
   from { transform: translate(-5%, -5%) scale(1); }
   to { transform: translate(5%, 5%) scale(1.2); }
 }
-
-/* INTRO VIDEO */
 
 #introScreen {
   position: fixed;
@@ -78,11 +72,7 @@ body::before {
   pointer-events: none;
 }
 
-#introScreen.intro-hidden {
-  display: none;
-}
-
-/* WEBSITE */
+#introScreen.intro-hidden { display: none; }
 
 header {
   text-align: center;
@@ -124,9 +114,7 @@ header {
   justify-content: center;
 }
 
-.ad-box iframe {
-  max-width: 100%;
-}
+.ad-box iframe { max-width: 100%; }
 
 button, .download-btn, .youtube-btn {
   display: inline-block;
@@ -183,9 +171,7 @@ button:disabled {
   margin: 10px 0;
 }
 
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
 .download-option {
   background: #171717;
@@ -233,9 +219,7 @@ button:disabled {
   border: 0;
 }
 
-.back-btn {
-  background: #333;
-}
+.back-btn { background: #333; }
 
 footer {
   text-align: center;
@@ -248,8 +232,6 @@ footer {
 
 <body>
 
-<!-- INTRO VIDEO -->
-
 <div id="introScreen">
   <video id="introVideo" autoplay muted playsinline preload="auto">
     <source src="./intro.mp4" type="video/mp4">
@@ -260,32 +242,23 @@ footer {
 
 <div class="container">
 
-  <!-- STEP 1 -->
-
   <section id="step1" class="panel">
     <h2>Step 1</h2>
     <p>Wait for the countdown to finish.</p>
-
     <div id="ad468" class="ad-box"></div>
-
     <h3 id="timer1">Please wait 7 seconds...</h3>
     <button id="next1" disabled onclick="goStep2()">Next</button>
   </section>
 
-  <!-- STEP 2 -->
-
   <section id="step2" class="panel hidden">
     <h2>Step 2</h2>
     <p>Wait for the countdown to finish.</p>
-
     <div id="ad300" class="ad-box"></div>
-
     <h3 id="timer2">Please wait 5 seconds...</h3>
     <button id="next2" disabled onclick="showCards()">Next</button>
   </section>
 
-  <!-- GAME CARDS -->
-
+  <!-- AVAILABLE LINKS -->
   <section id="cardsSection" class="panel hidden">
     <h2>Available Links</h2>
     <p>Select your option below.</p>
@@ -308,8 +281,6 @@ footer {
         <button onclick="openDownload('old2019')">Open ↗</button>
       </div>
 
-      <!-- 2017 FF OLD -->
-
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2017 FF Old logo">
@@ -318,19 +289,24 @@ footer {
         <button onclick="openDownload('old2017')">Open ↗</button>
       </div>
 
+      <!-- 2023 FF -->
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2023-logo.png" alt="2023 FF logo">
+        </div>
+        <h3>2023 FF</h3>
+        <button onclick="openDownload('ff2023')">Open ↗</button>
+      </div>
+
     </div>
   </section>
 
   <!-- DOWNLOAD PANEL -->
-
   <section id="downloadSection" class="panel hidden">
-
     <h2 id="downloadTitle">Download</h2>
-
     <div id="ad728" class="ad-box"></div>
 
     <div id="youtubeTutorial" class="youtube-section hidden">
-
       <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
 
       <div class="video-wrapper">
@@ -352,25 +328,19 @@ footer {
         rel="noopener noreferrer">
         Watch on YouTube ↗
       </a>
-
     </div>
 
     <div id="downloadOptions"></div>
-
     <button class="back-btn" onclick="backToCards()">⬅ Back</button>
-
   </section>
 
 </div>
 
-<footer>
-  AS-Tick Script Hub © 2026
-</footer>
+<footer>AS-Tick Script Hub © 2026</footer>
 
 <script>
 
 /* INTRO VIDEO */
-
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
 
@@ -403,7 +373,6 @@ window.addEventListener("load", () => {
 introVideo.addEventListener("error", finishIntro);
 
 /* DOWNLOAD URLS */
-
 const downloadData = {
 
   ff2022: {
@@ -434,8 +403,6 @@ const downloadData = {
     ]
   },
 
-  /* UPDATED 2017 FF LINK */
-
   old2017: {
     title: "2017 FF Old",
     options: [
@@ -444,12 +411,22 @@ const downloadData = {
         url: "https://www.mediafire.com/file/jrtzx128q2w2kcp/com.dts.freefireth_v1.70.0.xapk.zip/file"
       }
     ]
+  },
+
+  /* 2023 FF LINK */
+  ff2023: {
+    title: "2023 FF",
+    options: [
+      {
+        name: "MediaFire Download",
+        url: "https://www.mediafire.com/file/wefr17mhq4gmwth/Barbosa_Project_2023.apk/file"
+      }
+    ]
   }
 
 };
 
 /* LOAD ADSTERRA */
-
 function loadAd(containerId, key, width, height) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -485,7 +462,6 @@ function loadAd(containerId, key, width, height) {
 }
 
 /* FIRST AD */
-
 loadAd(
   "ad468",
   "4a0f9f4f79426fe7c7f7f51d5757b276",
@@ -494,7 +470,6 @@ loadAd(
 );
 
 /* STEP 1 TIMER */
-
 function startStep1Countdown() {
   if (countdown1Started) return;
 
@@ -523,7 +498,6 @@ function startStep1Countdown() {
 }
 
 /* STEP 2 TIMER */
-
 function goStep2() {
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
@@ -559,14 +533,12 @@ function goStep2() {
 }
 
 /* SHOW CARDS */
-
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 }
 
 /* OPEN DOWNLOAD */
-
 function openDownload(type) {
   const data = downloadData[type];
   if (!data) return;
@@ -635,7 +607,6 @@ function openDownload(type) {
 }
 
 /* BACK BUTTON */
-
 function backToCards() {
   document.getElementById("downloadSection").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
@@ -645,4 +616,4 @@ function backToCards() {
 </script>
 
 </body>
-  </html>
+</html>
