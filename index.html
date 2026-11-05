@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,6 +116,34 @@ header {
 }
 
 .ad-box iframe { max-width: 100%; }
+
+/* NEW ADS */
+.extra-ads {
+  width: 100%;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.extra-ad-box {
+  width: 100%;
+  max-width: 100%;
+  min-height: 70px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  border: 1px dashed #555;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.extra-ad-box iframe {
+  max-width: 100%;
+}
 
 button, .download-btn, .youtube-btn, .instagram-btn {
   display: inline-block;
@@ -267,7 +294,13 @@ footer {
   <section id="step1" class="panel">
     <h2>Step 1</h2>
     <p>Wait for the countdown to finish.</p>
+
+    <!-- EXISTING ADSTERRA -->
     <div id="ad468" class="ad-box"></div>
+
+    <!-- NEW 4 ADS -->
+    <div id="extraAdsStep1" class="extra-ads"></div>
+
     <h3 id="timer1">Please wait 7 seconds...</h3>
     <button id="next1" disabled onclick="goStep2()">Next</button>
   </section>
@@ -276,7 +309,13 @@ footer {
   <section id="step2" class="panel hidden">
     <h2>Step 2</h2>
     <p>Wait for the countdown to finish.</p>
+
+    <!-- EXISTING ADSTERRA -->
     <div id="ad300" class="ad-box"></div>
+
+    <!-- NEW 4 ADS -->
+    <div id="extraAdsStep2" class="extra-ads"></div>
+
     <h3 id="timer2">Please wait 5 seconds...</h3>
     <button id="next2" disabled onclick="showCards()">Next</button>
   </section>
@@ -285,6 +324,9 @@ footer {
   <section id="cardsSection" class="panel hidden">
     <h2>Available Links</h2>
     <p>Select your option below.</p>
+
+    <!-- NEW 4 ADS BEFORE OPEN BUTTONS -->
+    <div id="extraAdsCards" class="extra-ads"></div>
 
     <div class="cards">
 
@@ -422,6 +464,68 @@ window.addEventListener("load", () => {
 
 introVideo.addEventListener("error", finishIntro);
 
+
+/* NEW ADS LOADER */
+function loadNewAds(containerId) {
+
+  /*
+    Clear previous new-ad placement first.
+    This avoids duplicate ad container IDs while switching screens.
+  */
+  ["extraAdsStep1", "extraAdsStep2", "extraAdsCards"].forEach(id => {
+    const oldContainer = document.getElementById(id);
+    if (oldContainer) oldContainer.innerHTML = "";
+  });
+
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  function createAdBox() {
+    const box = document.createElement("div");
+    box.className = "extra-ad-box";
+    container.appendChild(box);
+    return box;
+  }
+
+  /* AD 1 */
+  const ad1Box = createAdBox();
+  const ad1Script = document.createElement("script");
+  ad1Script.setAttribute("data-cfasync", "false");
+  ad1Script.src =
+    "https://abscloud.org/1/ddc4f4acb3ac9d4de296540284f15c1d";
+  ad1Box.appendChild(ad1Script);
+
+  /* AD 2 */
+  const ad2Box = createAdBox();
+  const ad2Script = document.createElement("script");
+  ad2Script.src =
+    "https://araplhn.org/4/a8b873367f18ffc46dd80b870dfb134c";
+  ad2Box.appendChild(ad2Script);
+
+  /* AD 3 */
+  const ad3Box = createAdBox();
+
+  const ad3Container = document.createElement("div");
+  ad3Container.id = "container-4ac8f0b1a9c0721fd8b405568e58e1b8";
+  ad3Box.appendChild(ad3Container);
+
+  const ad3Script = document.createElement("script");
+  ad3Script.async = true;
+  ad3Script.setAttribute("data-cfasync", "false");
+  ad3Script.src =
+    "https://pl31052520.profitableratecpmnetwork.com/4ac8f0b1a9c0721fd8b405568e58e1b8/invoke.js";
+  ad3Box.appendChild(ad3Script);
+
+  /* AD 4 */
+  const ad4Box = createAdBox();
+  const ad4Script = document.createElement("script");
+  ad4Script.setAttribute("data-cfasync", "false");
+  ad4Script.src =
+    "https://bauval.org/14/af9ea1e01a5c906682540eb5fee2ecbc";
+  ad4Box.appendChild(ad4Script);
+}
+
+
 /* DOWNLOAD URLS */
 const downloadData = {
 
@@ -475,6 +579,7 @@ const downloadData = {
 
 };
 
+
 /* LOAD ADSTERRA */
 function loadAd(containerId, key, width, height) {
   const container = document.getElementById(containerId);
@@ -510,7 +615,8 @@ function loadAd(containerId, key, width, height) {
   adFrame.appendChild(adScript);
 }
 
-/* FIRST AD */
+
+/* FIRST ADSTERRA */
 loadAd(
   "ad468",
   "4a0f9f4f79426fe7c7f7f51d5757b276",
@@ -518,11 +624,15 @@ loadAd(
   60
 );
 
+
 /* STEP 1 TIMER */
 function startStep1Countdown() {
   if (countdown1Started) return;
 
   countdown1Started = true;
+
+  /* LOAD NEW ADS IN STEP 1 */
+  loadNewAds("extraAdsStep1");
 
   let time1 = 7;
 
@@ -546,6 +656,7 @@ function startStep1Countdown() {
   }, 1000);
 }
 
+
 /* STEP 2 TIMER */
 function goStep2() {
   document.getElementById("step1").classList.add("hidden");
@@ -557,6 +668,9 @@ function goStep2() {
     300,
     250
   );
+
+  /* LOAD SAME 4 NEW ADS IN STEP 2 */
+  loadNewAds("extraAdsStep2");
 
   let time2 = 5;
 
@@ -581,11 +695,16 @@ function goStep2() {
   }, 1000);
 }
 
+
 /* SHOW CARDS */
 function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
+
+  /* LOAD SAME 4 ADS BEFORE FF OPEN BUTTONS */
+  loadNewAds("extraAdsCards");
 }
+
 
 /* OPEN DOWNLOAD */
 function openDownload(type) {
@@ -676,6 +795,7 @@ function openDownload(type) {
     90
   );
 }
+
 
 /* BACK BUTTON */
 function backToCards() {
