@@ -117,7 +117,6 @@ header {
 
 .ad-box iframe { max-width: 100%; }
 
-/* NEW ADS */
 .extra-ads {
   width: 100%;
   margin: 15px auto;
@@ -294,13 +293,8 @@ footer {
   <section id="step1" class="panel">
     <h2>Step 1</h2>
     <p>Wait for the countdown to finish.</p>
-
-    <!-- EXISTING ADSTERRA -->
     <div id="ad468" class="ad-box"></div>
-
-    <!-- NEW 4 ADS -->
     <div id="extraAdsStep1" class="extra-ads"></div>
-
     <h3 id="timer1">Please wait 7 seconds...</h3>
     <button id="next1" disabled onclick="goStep2()">Next</button>
   </section>
@@ -309,13 +303,8 @@ footer {
   <section id="step2" class="panel hidden">
     <h2>Step 2</h2>
     <p>Wait for the countdown to finish.</p>
-
-    <!-- EXISTING ADSTERRA -->
     <div id="ad300" class="ad-box"></div>
-
-    <!-- NEW 4 ADS -->
     <div id="extraAdsStep2" class="extra-ads"></div>
-
     <h3 id="timer2">Please wait 5 seconds...</h3>
     <button id="next2" disabled onclick="showCards()">Next</button>
   </section>
@@ -325,11 +314,12 @@ footer {
     <h2>Available Links</h2>
     <p>Select your option below.</p>
 
-    <!-- NEW 4 ADS BEFORE OPEN BUTTONS -->
+    <!-- ADS BEFORE GAME CARDS -->
     <div id="extraAdsCards" class="extra-ads"></div>
 
     <div class="cards">
 
+      <!-- 2022 FF -->
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
@@ -338,6 +328,7 @@ footer {
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
 
+      <!-- 2019 FF OLD -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
@@ -346,7 +337,7 @@ footer {
         <button onclick="openDownload('old2019')">Open ↗</button>
       </div>
 
-      <!-- 2017 FF OLD: DISABLED -->
+      <!-- 2017 FF OLD -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2017 FF Old logo">
@@ -363,6 +354,24 @@ footer {
         </div>
         <h3>2023 FF</h3>
         <button onclick="openDownload('ff2023')">Open ↗</button>
+      </div>
+
+      <!-- NEW 2020 FF -->
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2020-logo.png" alt="2020 FF logo">
+        </div>
+        <h3>2020 FF</h3>
+        <button onclick="openDownload('ff2020')">Open ↗</button>
+      </div>
+
+      <!-- NEW 2020 CR7 -->
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2020-cr7-logo.png" alt="2020 CR7 logo">
+        </div>
+        <h3>2020 CR7</h3>
+        <button onclick="openDownload('ff2020cr7')">Open ↗</button>
       </div>
 
     </div>
@@ -398,7 +407,7 @@ footer {
       </a>
     </div>
 
-    <!-- INSTAGRAM REEL TUTORIAL: 2023 FF -->
+    <!-- INSTAGRAM REEL TUTORIAL -->
     <div id="instagramTutorial" class="instagram-section hidden">
       <h3>📱 2023 FF Instagram Reel Tutorial</h3>
 
@@ -468,10 +477,6 @@ introVideo.addEventListener("error", finishIntro);
 /* NEW ADS LOADER */
 function loadNewAds(containerId) {
 
-  /*
-    Clear previous new-ad placement first.
-    This avoids duplicate ad container IDs while switching screens.
-  */
   ["extraAdsStep1", "extraAdsStep2", "extraAdsCards"].forEach(id => {
     const oldContainer = document.getElementById(id);
     if (oldContainer) oldContainer.innerHTML = "";
@@ -575,6 +580,28 @@ const downloadData = {
         url: "https://www.mediafire.com/file/wefr17mhq4gmwth/Barbosa_Project_2023.apk/file"
       }
     ]
+  },
+
+  /* NEW 2020 FF */
+  ff2020: {
+    title: "2020 FF",
+    options: [
+      {
+        name: "MediaFire Download",
+        url: "https://www.mediafire.com/file/1zi94n977cph6kk/Free+Fire_1.53.2.apk/file"
+      }
+    ]
+  },
+
+  /* NEW 2020 CR7 */
+  ff2020cr7: {
+    title: "2020 CR7",
+    options: [
+      {
+        name: "MediaFire Download",
+        url: "https://www.mediafire.com/file/6nq65fi0nfucujj/AS.tick.official.apk/file"
+      }
+    ]
   }
 
 };
@@ -631,7 +658,6 @@ function startStep1Countdown() {
 
   countdown1Started = true;
 
-  /* LOAD NEW ADS IN STEP 1 */
   loadNewAds("extraAdsStep1");
 
   let time1 = 7;
@@ -669,7 +695,6 @@ function goStep2() {
     250
   );
 
-  /* LOAD SAME 4 NEW ADS IN STEP 2 */
   loadNewAds("extraAdsStep2");
 
   let time2 = 5;
@@ -701,7 +726,6 @@ function showCards() {
   document.getElementById("step2").classList.add("hidden");
   document.getElementById("cardsSection").classList.remove("hidden");
 
-  /* LOAD SAME 4 ADS BEFORE FF OPEN BUTTONS */
   loadNewAds("extraAdsCards");
 }
 
