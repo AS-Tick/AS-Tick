@@ -72,7 +72,9 @@ body::before {
   pointer-events: none;
 }
 
-#introScreen.intro-hidden { display: none; }
+#introScreen.intro-hidden {
+  display: none !important;
+}
 
 /* WEBSITE */
 header {
@@ -142,11 +144,10 @@ header {
 
 .extra-ad-box iframe { max-width: 100%; }
 
-/* YEAR-WISE GAME CARDS */
+/* YEAR-WISE CARDS */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  justify-content: center;
   gap: 18px;
   margin-top: 20px;
 }
@@ -276,24 +277,18 @@ footer {
   font-size: 13px;
 }
 
-/* MOBILE CARD LAYOUT */
+/* MOBILE */
 @media (max-width: 600px) {
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
-  .link-card {
-    padding: 12px 8px;
-  }
+  .link-card { padding: 12px 8px; }
 
-  .card-image {
-    height: 125px;
-  }
+  .card-image { height: 125px; }
 
-  .link-card h3 {
-    font-size: 15px;
-  }
+  .link-card h3 { font-size: 15px; }
 
   .link-card button {
     padding: 10px 14px;
@@ -303,9 +298,7 @@ footer {
 }
 
 @media (max-width: 350px) {
-  .cards {
-    grid-template-columns: 1fr;
-  }
+  .cards { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -352,7 +345,7 @@ footer {
 
     <div class="cards">
 
-      <!-- 2017 FF OLD -->
+      <!-- 2017 -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2017 FF Old logo">
@@ -362,7 +355,7 @@ footer {
         <span style="color:#ff3333;font-weight:bold;display:block;margin-top:5px;">SOON</span>
       </div>
 
-      <!-- 2019 FF OLD -->
+      <!-- 2019 -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
@@ -389,7 +382,7 @@ footer {
         <button onclick="openDownload('ff2020cr7')">Open ↗</button>
       </div>
 
-      <!-- 2022 FF -->
+      <!-- 2022 -->
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
@@ -398,7 +391,7 @@ footer {
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
 
-      <!-- 2023 FF -->
+      <!-- 2023 -->
       <div class="link-card">
         <div class="card-image">
           <img src="2023-logo.png" alt="2023 FF logo">
@@ -415,7 +408,7 @@ footer {
     <h2 id="downloadTitle">Download</h2>
     <div id="ad728" class="ad-box"></div>
 
-    <!-- YOUTUBE TUTORIAL -->
+    <!-- YOUTUBE -->
     <div id="youtubeTutorial" class="youtube-section hidden">
       <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
 
@@ -430,17 +423,16 @@ footer {
         </iframe>
       </div>
 
-      <a
-        id="youtubeButton"
-        class="youtube-btn"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer">
+      <a id="youtubeButton"
+         class="youtube-btn"
+         href="#"
+         target="_blank"
+         rel="noopener noreferrer">
         Watch on YouTube ↗
       </a>
     </div>
 
-    <!-- INSTAGRAM REEL TUTORIAL -->
+    <!-- INSTAGRAM -->
     <div id="instagramTutorial" class="instagram-section hidden">
       <h3>📱 2023 FF Instagram Reel Tutorial</h3>
 
@@ -454,12 +446,11 @@ footer {
         </iframe>
       </div>
 
-      <a
-        id="instagramButton"
-        class="instagram-btn"
-        href="https://www.instagram.com/reel/DfSYq4it8SH/?mdxt=MWVhcTk3MGVrcHVqcw=="
-        target="_blank"
-        rel="noopener noreferrer">
+      <a id="instagramButton"
+         class="instagram-btn"
+         href="https://www.instagram.com/reel/DfSYq4it8SH/?mdxt=MWVhcTk3MGVrcHVqcw=="
+         target="_blank"
+         rel="noopener noreferrer">
         Watch on Instagram ↗
       </a>
     </div>
@@ -478,7 +469,7 @@ src="https://abscloud.org/1/ddc4f4acb3ac9d4de296540284f15c1d"></script>
 
 <script>
 
-/* INTRO VIDEO */
+/* INTRO VIDEO - REDIRECT FIX */
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
 
@@ -493,29 +484,51 @@ function finishIntro() {
   if (introFinished) return;
 
   introFinished = true;
+
   introScreen.classList.add("intro-exit");
 
   setTimeout(() => {
     introScreen.classList.add("intro-hidden");
     introVideo.pause();
+
+    // Make sure Step 1 is visible
+    document.getElementById("step1").classList.remove("hidden");
+    document.getElementById("step2").classList.add("hidden");
+    document.getElementById("cardsSection").classList.add("hidden");
+    document.getElementById("downloadSection").classList.add("hidden");
+
+    // Start the first timer
     startStep1Countdown();
   }, 1000);
 }
 
+// Normal video completion
 introVideo.addEventListener("ended", finishIntro);
 
+// Backup check in case ended event does not fire
+introVideo.addEventListener("timeupdate", () => {
+  if (
+    introVideo.duration &&
+    introVideo.currentTime >= introVideo.duration - 0.25
+  ) {
+    finishIntro();
+  }
+});
+
+// Video loading error
+introVideo.addEventListener("error", finishIntro);
+
+// Start intro video
 window.addEventListener("load", () => {
   introVideo.muted = true;
 
   introVideo.play().catch(() => {
-    console.warn("Intro autoplay blocked or video failed to load.");
+    finishIntro();
   });
 });
 
-introVideo.addEventListener("error", finishIntro);
 
-
-/* SMARTLINK: OPEN ON FIRST NEXT BUTTON CLICK */
+/* SMARTLINK */
 function openSmartlinkOnce() {
   if (smartlinkOpened) return;
 
@@ -547,7 +560,7 @@ function loadNewAds(containerId) {
     return box;
   }
 
-  /* AD 2 - POPUNDER SMARTLINK */
+  /* SMARTLINK */
   const ad2Box = createAdBox();
 
   const ad2Link = document.createElement("a");
@@ -577,6 +590,7 @@ function loadNewAds(containerId) {
 
   /* AD 4 */
   const ad4Box = createAdBox();
+
   const ad4Script = document.createElement("script");
   ad4Script.setAttribute("data-cfasync", "false");
   ad4Script.src =
@@ -585,7 +599,7 @@ function loadNewAds(containerId) {
 }
 
 
-/* DOWNLOAD URLS */
+/* DOWNLOAD LINKS */
 const downloadData = {
 
   ff2022: {
@@ -718,6 +732,7 @@ function startStep1Countdown() {
   const next1 = document.getElementById("next1");
 
   timer1.textContent = "Please wait " + time1 + " seconds...";
+  next1.disabled = true;
 
   const countdown1 = setInterval(() => {
     time1--;
@@ -735,7 +750,7 @@ function startStep1Countdown() {
 }
 
 
-/* STEP 2 TIMER */
+/* STEP 2 */
 function goStep2() {
   openSmartlinkOnce();
 
@@ -829,7 +844,7 @@ function openDownload(type) {
     youtubeButton.href = "#";
   }
 
-  /* INSTAGRAM REEL TUTORIAL FOR 2023 FF */
+  /* INSTAGRAM TUTORIAL */
   if (type === "ff2023") {
     instagramTutorial.classList.remove("hidden");
 
@@ -858,26 +873,4 @@ function openDownload(type) {
     link.href = option.url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.textContent = "Download ↗";
-
-    item.appendChild(title);
-    item.appendChild(link);
-
-    optionsContainer.appendChild(item);
-  });
-
-  loadAd(
-    "ad728",
-    "747e0e46ad2293f09e331ec38ab28880",
-    728,
-    90
-  );
-}
-
-
-/* BACK BUTTON */
-function backToCards() {
-  document.getElementById("downloadSection").classList.add("hidden");
-  document.getElementById("cardsSection").classList.remove("hidden");
-
-  document.getElementById("tutorialFrame
+    link.t
