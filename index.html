@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,11 @@
 <meta name="twitter:image" content="https://as-tick.github.io/AS-Tick/as-tick-logo.png?v=2">
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: Arial, sans-serif;
@@ -73,7 +78,7 @@ body::before {
 }
 
 #introScreen.intro-hidden {
-  display: none !important;
+  display: none;
 }
 
 /* WEBSITE */
@@ -117,7 +122,9 @@ header {
   justify-content: center;
 }
 
-.ad-box iframe { max-width: 100%; }
+.ad-box iframe {
+  max-width: 100%;
+}
 
 .extra-ads {
   width: 100%;
@@ -142,48 +149,14 @@ header {
   padding: 10px;
 }
 
-.extra-ad-box iframe { max-width: 100%; }
-
-/* YEAR-WISE CARDS */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 20px;
-}
-
-.link-card {
-  background: #111;
-  border: 1px solid #ff2222;
-  border-radius: 12px;
-  width: 100%;
-  min-width: 0;
-  padding: 15px 10px;
-  box-shadow: 0 0 12px rgba(255,0,0,0.2);
-}
-
-.card-image {
-  width: 100%;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
-}
-
-.card-image img {
+.extra-ad-box iframe {
   max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
 }
 
-.link-card h3 {
-  color: #ff3333;
-  margin: 10px 0;
-  font-size: 17px;
-}
-
-button, .download-btn, .youtube-btn, .instagram-btn {
+button,
+.download-btn,
+.youtube-btn,
+.instagram-btn {
   display: inline-block;
   background: linear-gradient(135deg, #ff0000, #8b0000);
   color: white;
@@ -202,7 +175,45 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.hidden { display: none !important; }
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.link-card {
+  background: #111;
+  border: 1px solid #ff2222;
+  border-radius: 12px;
+  width: 260px;
+  padding: 18px;
+  box-shadow: 0 0 12px rgba(255,0,0,0.2);
+}
+
+.card-image {
+  width: 100%;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.link-card h3 {
+  color: #ff3333;
+  margin: 10px 0;
+}
+
+.hidden {
+  display: none !important;
+}
 
 .download-option {
   background: #171717;
@@ -268,37 +279,15 @@ button:disabled {
   background: #111;
 }
 
-.back-btn { background: #333; }
+.back-btn {
+  background: #333;
+}
 
 footer {
   text-align: center;
   color: #888;
   padding: 25px 10px;
   font-size: 13px;
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .link-card { padding: 12px 8px; }
-
-  .card-image { height: 125px; }
-
-  .link-card h3 { font-size: 15px; }
-
-  .link-card button {
-    padding: 10px 14px;
-    font-size: 14px;
-    margin: 6px 0;
-  }
-}
-
-@media (max-width: 350px) {
-  .cards { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -320,8 +309,10 @@ footer {
   <section id="step1" class="panel">
     <h2>Step 1</h2>
     <p>Wait for the countdown to finish.</p>
+
     <div id="ad468" class="ad-box"></div>
     <div id="extraAdsStep1" class="extra-ads"></div>
+
     <h3 id="timer1">Please wait 7 seconds...</h3>
     <button id="next1" disabled onclick="goStep2()">Next</button>
   </section>
@@ -330,8 +321,10 @@ footer {
   <section id="step2" class="panel hidden">
     <h2>Step 2</h2>
     <p>Wait for the countdown to finish.</p>
+
     <div id="ad300" class="ad-box"></div>
     <div id="extraAdsStep2" class="extra-ads"></div>
+
     <h3 id="timer2">Please wait 5 seconds...</h3>
     <button id="next2" disabled onclick="showCards()">Next</button>
   </section>
@@ -345,7 +338,7 @@ footer {
 
     <div class="cards">
 
-      <!-- 2017 -->
+      <!-- 2017 FF OLD -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2017 FF Old logo">
@@ -355,7 +348,16 @@ footer {
         <span style="color:#ff3333;font-weight:bold;display:block;margin-top:5px;">SOON</span>
       </div>
 
-      <!-- 2019 -->
+      <!-- 2018 FF -->
+      <div class="link-card">
+        <div class="card-image">
+          <img src="2018-logo.png" alt="2018 FF logo">
+        </div>
+        <h3>2018 FF</h3>
+        <button onclick="openDownload('ff2018')">Open ↗</button>
+      </div>
+
+      <!-- 2019 FF OLD -->
       <div class="link-card">
         <div class="card-image">
           <img src="2019-logo.png" alt="2019 FF Old logo">
@@ -382,7 +384,7 @@ footer {
         <button onclick="openDownload('ff2020cr7')">Open ↗</button>
       </div>
 
-      <!-- 2022 -->
+      <!-- 2022 FF -->
       <div class="link-card">
         <div class="card-image">
           <img src="cr7-logo.png" alt="2022 FF logo">
@@ -391,7 +393,7 @@ footer {
         <button onclick="openDownload('ff2022')">Open ↗</button>
       </div>
 
-      <!-- 2023 -->
+      <!-- 2023 FF -->
       <div class="link-card">
         <div class="card-image">
           <img src="2023-logo.png" alt="2023 FF logo">
@@ -405,10 +407,11 @@ footer {
 
   <!-- DOWNLOAD PANEL -->
   <section id="downloadSection" class="panel hidden">
+
     <h2 id="downloadTitle">Download</h2>
     <div id="ad728" class="ad-box"></div>
 
-    <!-- YOUTUBE -->
+    <!-- YOUTUBE TUTORIAL -->
     <div id="youtubeTutorial" class="youtube-section hidden">
       <h3 id="youtubeTitle">📺 YouTube Tutorial</h3>
 
@@ -423,16 +426,17 @@ footer {
         </iframe>
       </div>
 
-      <a id="youtubeButton"
-         class="youtube-btn"
-         href="#"
-         target="_blank"
-         rel="noopener noreferrer">
+      <a
+        id="youtubeButton"
+        class="youtube-btn"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer">
         Watch on YouTube ↗
       </a>
     </div>
 
-    <!-- INSTAGRAM -->
+    <!-- INSTAGRAM REEL TUTORIAL -->
     <div id="instagramTutorial" class="instagram-section hidden">
       <h3>📱 2023 FF Instagram Reel Tutorial</h3>
 
@@ -446,16 +450,18 @@ footer {
         </iframe>
       </div>
 
-      <a id="instagramButton"
-         class="instagram-btn"
-         href="https://www.instagram.com/reel/DfSYq4it8SH/?mdxt=MWVhcTk3MGVrcHVqcw=="
-         target="_blank"
-         rel="noopener noreferrer">
+      <a
+        id="instagramButton"
+        class="instagram-btn"
+        href="https://www.instagram.com/reel/DfSYq4it8SH/?mdxt=MWVhcTk3MGVrcHVqcw=="
+        target="_blank"
+        rel="noopener noreferrer">
         Watch on Instagram ↗
       </a>
     </div>
 
     <div id="downloadOptions"></div>
+
     <button class="back-btn" onclick="backToCards()">⬅ Back</button>
   </section>
 
@@ -463,86 +469,43 @@ footer {
 
 <footer>AS-Tick Script Hub © 2026</footer>
 
-<!-- POPUNDER JS SYNC -->
-<script data-cfasync="false"
-src="https://abscloud.org/1/ddc4f4acb3ac9d4de296540284f15c1d"></script>
-
 <script>
 
-/* INTRO VIDEO - REDIRECT FIX */
+/* INTRO VIDEO */
 const introScreen = document.getElementById("introScreen");
 const introVideo = document.getElementById("introVideo");
 
 let introFinished = false;
 let countdown1Started = false;
-let smartlinkOpened = false;
-
-const smartlinkURL =
-  "https://araplhn.org/4/a8b873367f18ffc46dd80b870dfb134c";
 
 function finishIntro() {
   if (introFinished) return;
 
   introFinished = true;
-
   introScreen.classList.add("intro-exit");
 
   setTimeout(() => {
     introScreen.classList.add("intro-hidden");
     introVideo.pause();
-
-    // Make sure Step 1 is visible
-    document.getElementById("step1").classList.remove("hidden");
-    document.getElementById("step2").classList.add("hidden");
-    document.getElementById("cardsSection").classList.add("hidden");
-    document.getElementById("downloadSection").classList.add("hidden");
-
-    // Start the first timer
     startStep1Countdown();
   }, 1000);
 }
 
-// Normal video completion
 introVideo.addEventListener("ended", finishIntro);
 
-// Backup check in case ended event does not fire
-introVideo.addEventListener("timeupdate", () => {
-  if (
-    introVideo.duration &&
-    introVideo.currentTime >= introVideo.duration - 0.25
-  ) {
-    finishIntro();
-  }
-});
-
-// Video loading error
-introVideo.addEventListener("error", finishIntro);
-
-// Start intro video
 window.addEventListener("load", () => {
   introVideo.muted = true;
 
   introVideo.play().catch(() => {
+    console.warn("Intro autoplay blocked or video failed to load.");
     finishIntro();
   });
 });
 
-
-/* SMARTLINK */
-function openSmartlinkOnce() {
-  if (smartlinkOpened) return;
-
-  smartlinkOpened = true;
-
-  window.open(
-    smartlinkURL,
-    "_blank",
-    "noopener,noreferrer"
-  );
-}
+introVideo.addEventListener("error", finishIntro);
 
 
-/* NEW ADS LOADER */
+/* EXTRA ADS LOADER */
 function loadNewAds(containerId) {
 
   ["extraAdsStep1", "extraAdsStep2", "extraAdsCards"].forEach(id => {
@@ -560,19 +523,20 @@ function loadNewAds(containerId) {
     return box;
   }
 
-  /* SMARTLINK */
+  /* AD 1 */
+  const ad1Box = createAdBox();
+  const ad1Script = document.createElement("script");
+  ad1Script.setAttribute("data-cfasync", "false");
+  ad1Script.src =
+    "https://abscloud.org/1/ddc4f4acb3ac9d4de296540284f15c1d";
+  ad1Box.appendChild(ad1Script);
+
+  /* AD 2 */
   const ad2Box = createAdBox();
-
-  const ad2Link = document.createElement("a");
-  ad2Link.href = smartlinkURL;
-  ad2Link.target = "_blank";
-  ad2Link.rel = "noopener noreferrer";
-  ad2Link.textContent = "Visit Sponsor";
-  ad2Link.style.color = "#ff3333";
-  ad2Link.style.fontWeight = "bold";
-  ad2Link.style.textDecoration = "none";
-
-  ad2Box.appendChild(ad2Link);
+  const ad2Script = document.createElement("script");
+  ad2Script.src =
+    "https://araplhn.org/4/a8b873367f18ffc46dd80b870dfb134c";
+  ad2Box.appendChild(ad2Script);
 
   /* AD 3 */
   const ad3Box = createAdBox();
@@ -590,7 +554,6 @@ function loadNewAds(containerId) {
 
   /* AD 4 */
   const ad4Box = createAdBox();
-
   const ad4Script = document.createElement("script");
   ad4Script.setAttribute("data-cfasync", "false");
   ad4Script.src =
@@ -599,23 +562,15 @@ function loadNewAds(containerId) {
 }
 
 
-/* DOWNLOAD LINKS */
+/* DOWNLOAD URLS */
 const downloadData = {
 
-  ff2022: {
-    title: "2022 FF",
+  ff2018: {
+    title: "2018 FF",
     options: [
       {
-        name: "Option 1 - TeraShare",
-        url: "https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
-      },
-      {
-        name: "Option 2 - MediaFire",
-        url: "https://www.mediafire.com/file/qsh6zxo0vspdsq1/Free+Fire_1.71.0.apk/file"
-      },
-      {
-        name: "Option 3 - MediaFire",
-        url: "https://www.mediafire.com/file/jrtzx128q2w2kcp/com.dts.freefireth_v1.70.0.xapk.zip/file"
+        name: "MediaFire Download",
+        url: "https://www.mediafire.com/file/s4b6cu550y5m6g8/FFBLGEXACT.apk/file"
       }
     ]
   },
@@ -626,26 +581,6 @@ const downloadData = {
       {
         name: "MediaFire Download",
         url: "https://www.mediafire.com/file/mk7peq297z295l8/FreeFire(Apk+2).apk/file"
-      }
-    ]
-  },
-
-  old2017: {
-    title: "2017 FF Old",
-    options: [
-      {
-        name: "MediaFire Download",
-        url: "https://www.mediafire.com/file/jrtzx128q2w2kcp/com.dts.freefireth_v1.70.0.xapk.zip/file"
-      }
-    ]
-  },
-
-  ff2023: {
-    title: "2023 FF",
-    options: [
-      {
-        name: "Gofile Download",
-        url: "https://gofile.io/d/BotQa1qh"
       }
     ]
   },
@@ -666,6 +601,34 @@ const downloadData = {
       {
         name: "Download",
         url: "https://downloads.nostalgicff.in/"
+      }
+    ]
+  },
+
+  ff2022: {
+    title: "2022 FF",
+    options: [
+      {
+        name: "Option 1 - TeraShare",
+        url: "https://terasharefile.com/s/1JsP9wlmT0X9_FyBuG8DLrQ"
+      },
+      {
+        name: "Option 2 - MediaFire",
+        url: "https://www.mediafire.com/file/qsh6zxo0vspdsq1/Free+Fire_1.71.0.apk/file"
+      },
+      {
+        name: "Option 3 - MediaFire",
+        url: "https://www.mediafire.com/file/jrtzx128q2w2kcp/com.dts.freefireth_v1.70.0.xapk.zip/file"
+      }
+    ]
+  },
+
+  ff2023: {
+    title: "2023 FF",
+    options: [
+      {
+        name: "Gofile Download",
+        url: "https://gofile.io/d/BotQa1qh"
       }
     ]
   }
@@ -732,7 +695,6 @@ function startStep1Countdown() {
   const next1 = document.getElementById("next1");
 
   timer1.textContent = "Please wait " + time1 + " seconds...";
-  next1.disabled = true;
 
   const countdown1 = setInterval(() => {
     time1--;
@@ -750,10 +712,8 @@ function startStep1Countdown() {
 }
 
 
-/* STEP 2 */
+/* STEP 2 TIMER */
 function goStep2() {
-  openSmartlinkOnce();
-
   document.getElementById("step1").classList.add("hidden");
   document.getElementById("step2").classList.remove("hidden");
 
@@ -844,7 +804,7 @@ function openDownload(type) {
     youtubeButton.href = "#";
   }
 
-  /* INSTAGRAM TUTORIAL */
+  /* INSTAGRAM REEL TUTORIAL FOR 2023 FF */
   if (type === "ff2023") {
     instagramTutorial.classList.remove("hidden");
 
@@ -873,4 +833,34 @@ function openDownload(type) {
     link.href = option.url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.t
+    link.textContent = "Download ↗";
+
+    item.appendChild(title);
+    item.appendChild(link);
+
+    optionsContainer.appendChild(item);
+  });
+
+  loadAd(
+    "ad728",
+    "747e0e46ad2293f09e331ec38ab28880",
+    728,
+    90
+  );
+}
+
+
+/* BACK TO CARDS */
+function backToCards() {
+  document.getElementById("downloadSection").classList.add("hidden");
+  document.getElementById("cardsSection").classList.remove("hidden");
+
+  document.getElementById("tutorialFrame").src = "about:blank";
+  document.getElementById("instagramFrame").src = "about:blank";
+}
+
+</script>
+
+</body>
+  </html>
+  
